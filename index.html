@@ -85,7 +85,7 @@ footer a{color:var(--blue)}
   <div>
     <div class="brand">ETYCO<small>Soluciones contables, impositivas y laborales</small></div>
     <h1>Estudio Inteligente</h1>
-    <div class="for">Catálogo de soluciones preparado para <b>C.P.N. Yesica Suarez</b></div>
+    <div class="for">Catálogo de soluciones preparado para <b>C.P.N. Yesica Juarez</b></div>
   </div>
 </div></header>
 
@@ -99,7 +99,7 @@ footer a{color:var(--blue)}
 
 <div class="wrap form" id="enviar">
   <h2>Tu selección</h2>
-  <div class="field"><label for="nombre">Tu nombre</label><input id="nombre" type="text" value="Yesica Suarez" autocomplete="name"></div>
+  <div class="field"><label for="nombre">Tu nombre</label><input id="nombre" type="text" value="Yesica Juarez" autocomplete="name"></div>
   <div class="field"><label for="coment">Comentarios (opcional)</label><textarea id="coment" placeholder="Por ejemplo: qué te urge más, o una duda sobre alguna solución"></textarea></div>
   <div id="result" hidden></div>
   <p class="contact">Cuando termines, tocá <b>Copiar mi selección</b> y pegala en WhatsApp o en un correo a gmoreno@etyco.com.ar.</p>
@@ -143,7 +143,7 @@ try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d){d.s.forEach(c=>{
 boxes.forEach(b=>b.addEventListener('change',upd));document.getElementById('coment').addEventListener('input',save);upd();
 
 function texto(){
-  const s=sel();const nombre=document.getElementById('nombre').value.trim()||'Yesica Suarez';
+  const s=sel();const nombre=document.getElementById('nombre').value.trim()||'Yesica Juarez';
   const lines=s.map(c=>{const it=ALL.find(x=>x.c===c);return `${c} — ${it.t}`});
   const com=document.getElementById('coment').value.trim();
   return `Estudio Inteligente ETYCO — selección de ${nombre}\n\n${lines.join('\n')||'(sin soluciones marcadas)'}${com?`\n\nComentarios: ${com}`:''}`;
