@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preguntas para Tefy — Dolce Festa</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: banda rosa de Dolce Festa arriba, módulos en tarjetas con opciones para tocar, barra fija abajo con el avance y el botón de copiar */
+:root{
+  --band:#B83F6C; --band-ink:#FFE3EC; --pink:#E2608E; --pink-soft:#FFE3EC; --mint:#2F8F8A; --mint-soft:#DFF3F2; --lav:#6B54C4;
+  --bg:#FFF8F2; --surface:#FFFFFF; --fg:#3A2A2F; --muted:#7B6A6F; --line:#EFDCD3; --chk:#FFF0F5; --ok:#2F8F8A;
+  --display:"Baloo 2",ui-rounded,system-ui,sans-serif;
+  --body:"Nunito Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --band:#7A2546; --bg:#1E1719; --surface:#2A2023; --fg:#F6ECEF; --muted:#BBA9AF; --line:#3D2F33; --chk:#4A2533; --pink:#FF8DB3; --pink-soft:#4A2533; --mint:#7FD3CD; --mint-soft:#1F3A39; --ok:#7FD3CD; color-scheme:dark}}
+:root[data-theme="dark"]{--band:#7A2546; --bg:#1E1719; --surface:#2A2023; --fg:#F6ECEF; --muted:#BBA9AF; --line:#3D2F33; --chk:#4A2533; --pink:#FF8DB3; --pink-soft:#4A2533; --mint:#7FD3CD; --mint-soft:#1F3A39; --ok:#7FD3CD; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:820px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.band{background:var(--band);color:#fff}
+header.band .wrap{padding-block:26px 28px;display:flex;gap:16px;align-items:center}
+header.band img{width:72px;height:72px;border-radius:50%;background:#fff;flex:none;object-fit:contain;padding:4px}
+.brand{font-family:var(--display);letter-spacing:.18em;font-weight:700;font-size:14px;color:var(--band-ink);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,6vw,40px);line-height:1.05;margin:4px 0 4px;text-wrap:balance;color:#fff}
+.for{color:var(--band-ink);font-size:15px}
+.for b{color:#fff}
+.intro{padding-block:22px 6px}
+.intro p{margin:0 0 10px;max-width:65ch}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px;padding:0;list-style:none}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;color:var(--muted)}
+.steps li b{color:var(--pink)}
+section.mod{padding-block:20px 4px}
+.mod h2{font-family:var(--display);font-size:22px;line-height:1.2;margin:0 0 2px;text-wrap:balance}
+.mod h2 .letter{display:block;color:var(--pink);font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.mod .sub{color:var(--muted);font-size:15px;margin:0 0 10px}
+.items{display:grid;gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;transition:border-color .15s,background .15s}
+.card.done{border-color:var(--mint);box-shadow:inset 4px 0 0 var(--mint)}
+.qh{display:flex;gap:10px;align-items:flex-start}
+.code{font-family:var(--display);font-weight:700;color:var(--pink);font-size:15px;min-width:30px;font-variant-numeric:tabular-nums}
+.qt{font-weight:700;min-width:0}
+.qs{color:var(--muted);font-size:15px;margin:2px 0 0}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0 40px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:inline-block;padding:8px 14px;border:1.5px solid var(--line);border-radius:999px;cursor:pointer;font-weight:600;font-size:15px;background:var(--surface)}
+.opt input:checked+span{background:var(--pink);border-color:var(--pink);color:#fff}
+.opt input:focus-visible+span{outline:2px solid var(--lav);outline-offset:2px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px 12px;margin:10px 0 0 40px}
+.field{display:grid;gap:4px;min-width:0}
+.field label{font-weight:600;font-size:14px;color:var(--muted)}
+.field input,.field textarea{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%}
+.field textarea{min-height:80px;resize:vertical}
+.field.wide{grid-column:1/-1}
+.field input:focus,.field textarea:focus{outline:2px solid var(--pink);outline-offset:1px}
+.pk-rub{font-family:var(--display);font-weight:700;color:var(--pink);font-size:17px;margin:16px 0 6px}
+label.it{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;transition:background .15s,border-color .15s}
+label.it:has(input:checked){background:var(--chk);border-color:var(--pink)}
+label.it input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--pink)}
+label.it .n{font-size:15px;min-width:0;overflow-wrap:anywhere}
+.pk-grid{display:grid;gap:6px}
+.form{padding-block:24px 150px}
+.form h2{font-family:var(--display);font-size:22px;margin:0 0 10px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--band);color:#fff;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+.bar .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;padding-block:12px;flex-wrap:wrap}
+.count{font-size:15px}
+.count b{font-family:var(--display);font-size:20px}
+button{font:inherit;font-weight:700;border-radius:10px;padding:11px 18px;cursor:pointer;border:0}
+button.primary{background:#fff;color:var(--band)}
+button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.result{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:16px}
+.result h3{margin:0 0 6px;font-family:var(--display);font-size:18px}
+.result.ok h3{color:var(--ok)}
+.result pre{white-space:pre-wrap;font-family:var(--body);font-size:15px;background:var(--bg);border-radius:8px;padding:10px;margin:8px 0;max-height:260px;overflow:auto}
+.contact{color:var(--muted);font-size:14px}
+footer{color:var(--muted);font-size:14px;padding-block:8px 24px}
+@media (max-width:520px){.opts,.fields{margin-left:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+  <img src="data:image/webp;base64,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" alt="Dolce Festa">
+  <div>
+    <div class="brand">Cotillón Dolce Festa</div>
+    <h1>Última tanda de preguntas</h1>
+    <div class="for">Preparado para <b>Tefy</b> · antes de abrir el local</div>
+  </div>
+</div></header>
+
+<main>
+<div class="wrap intro">
+  <p>Hola Tefy! 🎉 Contestá lo que sepas tocando las opciones o escribiendo en los cuadritos. Lo que no sepas, dejalo en blanco. Si tocás una opción sin querer, la tocás de nuevo y se desmarca.</p>
+  <p>Lo que vas marcando queda guardado en tu celu, así que podés hacerlo de a poco. Al final tocá <b>Copiar mis respuestas</b> y me las pegás por WhatsApp.</p>
+  <ul class="steps"><li><b>A</b> Compras</li><li><b>B</b> El negocio</li><li><b>C</b> Cobros</li><li><b>D</b> Local y equipos</li><li><b>E</b> Trámites</li><li><b>F</b> Packs</li></ul>
+</div>
+<div id="mods" class="wrap"></div>
+
+<section class="mod wrap" id="packs">
+  <h2><span class="letter">Módulo F</span><span>Packs: cuáles vendés sueltos</span></h2>
+  <p class="sub">Marcá solo los que vas a vender <b>de a uno</b>. Los que no marques, los cargo como que se venden <b>enteros</b>. Si dudás de alguno, anotalo en los comentarios del final.</p>
+  <div id="pklist"></div>
+</section>
+
+<div class="wrap form" id="enviar">
+  <h2>Para terminar</h2>
+  <div class="field wide"><label for="coment">Algo más que me quieras contar? (opcional)</label><textarea id="coment" placeholder="Packs que no sabés, dudas, lo que sea"></textarea></div>
+  <div id="result" hidden></div>
+  <p class="contact">Cuando termines, tocá <b>Copiar mis respuestas</b> y pegalas en el WhatsApp con Gabriel.</p>
+</div>
+</main>
+
+<footer><div class="wrap">Cotillón Dolce Festa · Mendoza · acompaña Estudio ETYCO</div></footer>
+
+<div class="bar"><div class="wrap">
+  <div class="count"><b id="n">0</b> de <span id="tot">0</span> preguntas · <b id="np">0</b> packs sueltos</div>
+  <button class="primary" id="copy" type="button">Copiar mis respuestas</button>
+</div></div>
+
+<script>
+const MODS=[{"l": "A", "t": "Compras", "i": "Para terminar de cargar bien las compras en Dux.", "q": [{"c": "A1", "t": "Ya te confirmaron el envío del pedido 9908 de Casa Lavalle?", "o": ["Sí", "Todavía no"], "f": [{"l": "Si ya te lo confirmaron, cuánto es", "p": "$", "y": "text"}]}, {"c": "A2", "t": "Casa Elyel ya llegó?", "o": ["Llegó todo", "Llegó, pero faltaron cosas", "Todavía no llegó"], "f": [{"l": "Si faltaron cosas, cuáles", "p": "", "y": "text"}]}, {"c": "A3", "t": "Los 40 anillos con luz de Casa Elyel, los pagaste?", "o": ["Sí, están", "No, no los pedí"], "s": "La captura suma $709.700 y me dijiste $670.100. La diferencia son esos anillos."}, {"c": "A4", "t": "La cotización de golosinas está a nombre de Estrella Alicia Paulina. Es Don Justo?", "o": ["Sí, es Don Justo", "No, es otro"]}, {"c": "A5", "t": "Pagaste los $696.120 de las golosinas?", "o": ["Sí", "No, pagué otro monto"], "f": [{"l": "Si pagaste otro monto, cuánto", "p": "$", "y": "text"}]}, {"c": "A6", "t": "Ya llegaron las golosinas?", "o": ["Sí", "Todavía no"], "f": [{"l": "Si llegaron, anotame las fechas de vencimiento que veas (producto y fecha)", "p": "", "y": "area"}]}, {"c": "A7", "t": "Del combo de Peligro Rocks, cuántos son de cada cosa?", "f": [{"l": "Aros", "p": "0", "y": "num"}, {"l": "Collares", "p": "0", "y": "num"}, {"l": "Llaveros", "p": "0", "y": "num"}]}, {"c": "A8", "t": "En el remito de Navidad, qué pasó con el set x6 vasos?", "o": ["No llegó", "Lo devolví", "Otra cosa"], "f": [{"l": "Si fue otra cosa, contame", "p": "", "y": "text"}, {"l": "Número del remito (está arriba a la derecha)", "p": "", "y": "text"}]}, {"c": "A9", "t": "Ya te confirmaron los envíos de Toy Shop y Acero Blanco?", "f": [{"l": "Envío Toy Shop", "p": "Monto o \"todavía no\"", "y": "text"}, {"l": "Envío Acero Blanco", "p": "Monto o \"todavía no\"", "y": "text"}]}, {"c": "A10", "t": "Hiciste otras compras después del 28/10?", "o": ["No", "Sí"], "f": [{"l": "Si hiciste, contame dónde, cuánto y si tenés factura o pedido", "p": "", "y": "area"}]}]}, {"l": "B", "t": "El negocio", "i": "Cómo va a funcionar el local día a día.", "q": [{"c": "B1", "t": "Qué día abren y en qué horario?", "f": [{"l": "Día de apertura", "p": "Ej: sábado 14/11", "y": "text"}, {"l": "Lunes a viernes", "p": "Ej: 9 a 13 y 17 a 21", "y": "text"}, {"l": "Sábados", "p": "", "y": "text"}]}, {"c": "B2", "t": "Abren los domingos?", "o": ["Sí", "No"]}, {"c": "B3", "t": "Quién más va a atender el local?", "o": ["Solo yo", "Juampi y yo", "Juampi, yo y alguien más"], "f": [{"l": "Si es alguien más, quién", "p": "", "y": "text"}]}, {"c": "B4", "t": "Van a aceptar cambios?", "o": ["Sí", "No"]}, {"c": "B5", "t": "Si aceptan cambios, en cuántos días y cómo?", "o": ["7 días", "15 días", "30 días"], "f": [{"l": "Cómo", "p": "Ej: solo cambio", "y": "text"}]}, {"c": "B6", "t": "Para el descuento de La Delfina, cómo preferís controlarlo?", "o": ["Con un código de descuento", "Mirando la agenda del salón"]}, {"c": "B7", "t": "Qué mail querés que use el sistema para mandar los comprobantes a los clientes?", "o": ["cotillon.dolcefesta@gmail.com", "Otro"], "f": [{"l": "Si es otro, cuál", "p": "", "y": "text"}]}, {"c": "B8", "t": "Qué datos querés que salgan en el ticket?", "f": [{"l": "Dirección del local", "p": "", "y": "text"}, {"l": "Teléfono o WhatsApp", "p": "", "y": "text"}, {"l": "Instagram", "p": "@", "y": "text"}, {"l": "Frase de agradecimiento", "p": "Ej: Gracias por elegirnos 💖", "y": "text"}]}]}, {"l": "C", "t": "Cobros", "i": "Mercado Pago, cuotas y bancos.", "q": [{"c": "C1", "t": "Qué otra terminal de cobro estás viendo?", "o": ["Ninguna, solo Mercado Pago", "Estoy viendo otra"], "f": [{"l": "Si estás viendo otra, cuál y de qué banco", "p": "", "y": "text"}]}, {"c": "C2", "t": "Hasta cuántas cuotas sin interés querés ofrecer?", "o": ["3 cuotas", "6 cuotas", "Todavía no sé"]}, {"c": "C3", "t": "En tu Mercado Pago, cuánto te cobran por ofrecer 3 cuotas sin interés?", "f": [{"l": "Porcentaje", "p": "El % que te muestra la app", "y": "text"}]}, {"c": "C4", "t": "Cuándo querés que Mercado Pago te acredite la plata de las ventas con tarjeta?", "o": ["En el momento", "A los 10 días", "A los 18 días", "Todavía no sé"], "f": [{"l": "Comisión que te muestra la app para esa opción", "p": "%", "y": "text"}]}, {"c": "C5", "t": "Ya separaste la cuenta de Mercado Pago del salón?", "o": ["Sí", "Todavía no"]}, {"c": "C6", "t": "La cuenta del Macro está activa?", "o": ["Sí", "No", "Todavía no averigüé"], "f": [{"l": "Si está activa, CBU o alias", "p": "", "y": "text"}]}]}, {"l": "D", "t": "Local y equipos", "i": "Para preparar la compu, la tickeadora y el internet.", "q": [{"c": "D1", "t": "Cuántos metros cuadrados tiene el local?", "f": [{"l": "Metros cuadrados", "p": "0", "y": "num"}]}, {"c": "D2", "t": "Qué compu van a usar en el local?", "o": ["Notebook", "De escritorio", "Todavía no sé"]}, {"c": "D3", "t": "Tienen impresora en casa que se pueda llevar al local?", "o": ["Sí", "No"]}, {"c": "D4", "t": "Ya compraron la tickeadora?", "o": ["Sí", "Todavía no"]}, {"c": "D5", "t": "Ya compraron el lector de códigos?", "o": ["Sí", "Todavía no"], "f": [{"l": "Marca y modelo de lo que compraron", "p": "", "y": "text"}]}, {"c": "D6", "t": "Ya pediste internet para el local?", "o": ["Sí, ya está instalado", "Lo pedí, falta instalar", "Todavía no"]}, {"c": "D7", "t": "Qué plan de Redes del Oeste?", "o": ["100 Mbps", "300 Mbps", "500 Mbps", "Otra empresa"], "f": [{"l": "Velocidad de subida que te dijeron (si preguntaste)", "p": "", "y": "text"}]}, {"c": "D8", "t": "Cuando ordenes el local, va a quedar mercadería en tu casa?", "o": ["No, todo en el local", "Sí, una parte", "Todavía no sé"]}, {"c": "D9", "t": "La inmobiliaria ya te dio el contrato firmado?", "o": ["Sí", "Todavía no"]}]}, {"l": "E", "t": "Trámites", "i": "Para el alta en ARCA.", "q": [{"c": "E1", "t": "Tu obra social es por un trabajo en relación de dependencia o la pagás vos?", "o": ["Por un trabajo en relación de dependencia", "La pago yo", "Otra"], "f": [{"l": "Si es otra, contame", "p": "", "y": "text"}]}, {"c": "E2", "t": "Tenés clave fiscal nivel 3?", "o": ["Sí", "No", "No sé"]}]}];
+const PACKS={"BIJOUTERIE": ["ARGOLLAS BLANCAS PA2362 PACK X6", "ARGOLLAS DIJES ACRILICO PA24 PACK X3", "ARO GOTA BAÑADO EN ORO 24K PA88 10*20 PACK X12", "AROS CUFF BLANCOS PA3358 PACK X6", "BRAZALETES ACERO BLANCO PA1254 PACK X3", "CHOKERS REGULABLES PA1113 PACK X6", "PULSERAS DE STRASS SURTIDAS PA3461 PACK X3"], "COTILLON Y ACCESORIOS": ["ANTEOJOS CRYSTAL HEART PACK X6", "BLISTER STRASS AUTOADHESIVO PARA CARA VARIOS MODELOS PACK X12", "LLUVIA DE PINTURA MULTICOLOR ARTELIGHT 250 CC PACK X6", "NIEVE CARNAVAL REY MOMO PACK X12", "POLVO BOMBUCHA MULTICOLOR PACK X10", "POLVO BOMBUCHA MULTICOLOR FLUO PACK X10", "SERPENTINA EN AEROSOL MULTICOLOR 80 GRS PACK X24"], "DECORACION": ["BANDERIN IMPRESO FELIZ CUMPLEAÑOS CON BRILLO FUCSIA PACK X12", "TIRA LED BLANCA 2 MTS PACK X12"], "DESCARTABLES": ["PLATO AUTITO VINTAGE MULTICOLOR PACK X6", "PLATO CARTON GUERRERAS K-POP PACK X8", "PLATO CUADRADO CUADRILLE CELESTE PACK X8", "PLATO CUADRILLE PACK X8", "PLATO DINO COLORS PACK X6", "PLATO FROZEN PACK X8", "PLATO HOJA TROPICAL PACK X6", "PLATO HOMBRE ARAÑA PACK X8", "PLATO MAPACHE PACK X6", "PLATO MARGARITAS BLANCO PACK X10", "PLATO MEDIA SANDIA PACK X6", "PLATO MINNIE PACK X8", "PLATO OSITOS PACK X8", "PLATO PAW PATROL PACK X8", "PLATO PELOTA FUTBOL PACK X6", "PLATO SANDIA NEW CON DORADO PACK X6", "PLATO SELECCION ARGENTINA PACK X8", "PLATO STAMPING CEREZA CHERRY PACK X8", "PLATO STAMPING MOÑO COQUETTE PACK X8", "PLATO STITCH PACK X8", "PLATO TOY STORY 5 PACK X8", "PLATOS LET'S FLAMINGLE PACK X10", "SERVILLETA ANANA BLANCA PACK X20", "SERVILLETA AUTITOS VINTAGE PACK X20", "SERVILLETA CHERRY 24X24 PACK X20", "SERVILLETA CHEVRON NEGRO PACK X20", "SERVILLETA FUTBOL PACK X20", "SERVILLETA OLIVO DORADO PACK X20", "SERVILLETA STITCH PACK X20", "SERVILLETAS LITTLE FLOWERS ROSA PACK X20", "SORBETE FUTBOL PACK X25", "SORBETE IRIDISCENTE ROSA PACK X24", "SORBETE STAMPING PACK X24", "SORBETES MULTICOLOR PACK X24", "TENEDOR CRYSTAL GLITTER PACK X20", "VASO DE POLIPAPEL BLUEY PACK X8", "VASO DE POLIPAPEL FROZEN PACK X8", "VASO DE POLIPAPEL HOMBRE ARAÑA PACK X8", "VASO DE POLIPAPEL MICKEY PACK X8", "VASO DE POLIPAPEL MINNIE PACK X8", "VASO DE POLIPAPEL PAW PATROL PACK X8", "VASO DE POLIPAPEL PEPPA PIG PACK X8", "VASO DE POLIPAPEL PRINCESAS DE DISNEY PACK X8", "VASO DE POLIPAPEL STITCH PACK X8", "VASO DE POLIPAPEL TOY STORY 5 PACK X8", "VASO DINO COLORS PACK X6", "VASO FELIZ CUMPLE MULTICOLOR METALIZADO PLATA PACK X10", "VASO FUTBOL PACK X6", "VASO MAPACHE PACK X6", "VASO PANDA IRIDISCENTE PACK X6", "VASO POLIPAPEL PACK X10", "VASO POLIPAPEL CUADRILLE PACK X10", "VASO POLIPAPEL OSITOS PACK X8", "VASO SANDIA FRUIT PACK X10"], "FECHAS ESPECIALES": ["ADORNO CASCANUECES EN CAJA SURTIDO PACK X4", "ADORNO GLOBO DECORADO 8 CM PACK X3", "ADORNO GLOBO LISOS/BRILLOS 4CM EN BURBUJA PACK X10", "ADORNO GLOBO SURTIDOS 4CM EN BURBUJA PACK X24", "ADORNO GLOBO SURTIDOS 5 CM EN BURBUJA PACK X6", "ADORNO GLOBO SURTIDOS 6 CM EN BURBUJA PACK X9", "SERVILLETA PAPEL BASTONES NAVIDAD PACK X20"], "GLOBOS": ["GLOBO DINO 4D ECO 70 CM VERDE PACK X5", "GLOBO ESTAMPADO VACA PACK X12", "GLOBO METAL ESTRELLA MULTICOLOR PASTEL 46CM PACK X10", "GLOBO MOÑO COQUETTE PACK X5", "GLOBOS CUBO IRIDISCENTES COLOR BLANCO IRIS PACK X5", "KIT GLOBOS FORMA PERSONAJE MUÑECA PACK X5", "PALITO PARA GLOBO CON CHUPETE BLANCO PACK X100", "PALITO PARA GLOBO CON CHUPETE STASIO MULTICOLOR PASTEL PACK X25", "SET DE GLOBOS GUERRERAS KPOP PCS. PACK X4", "SET GLOBO HOMBRE ARAÑA PACK X5", "SET GLOBO MEDIA SANDIA ESTRELLA VERDE PACK X5"], "REPOSTERIA": ["PINCHE ADORNO SET F CUMPLE TOY STORY 5 PACK X3", "PINCHE ADORNO SET F.CUMPLE GUERRERAS K-POP C PACK X3", "PINCHE ADORNO SET F.CUMPLE MINECRAFT PACK X3", "PINCHE ADORNO SET F.CUMPLE PAW PATROL CALUM PACK X3", "PINCHE ADORNO SET F.CUMPLE STITCH PACK X3", "PINCHE ADORNO SET FELIZ CUMPLE HOMBRE ARAÑA PACK X3", "PINCHES GRANDES BLUEY ROSA PACK X6"], "SORPRESITAS Y JUGUETES": ["BOLSA CARTON FUELLE MICKEY PACK X8", "BOLSA CARTON FUELLE PAW PATROL PACK X8", "BOLSA CON FUELLE DINOSAURIOS PACK X10", "BOLSA CON FUELLE RAYADA ARCO IRIS PACK X10", "BOLSITA BLUEY PACK X10", "BOMBA DE ESPUMA PARA BAÑO CON ANIMALITO DE MAR SORPRESA (NENE) CAJA PACK X12", "BURBUJERO ESTRELLA PACK X10", "BURBUJERO PASTELES SURTIDOS PACK X10", "BURBUJEROS DINOSAURIO PACK X10", "CAJITA FELIZ PARA ARMAR PEPPA PIG PACK X6", "CAJITA FELIZ PARA ARMAR STITCH PACK X6", "DINO QUE SE AGRANDA CON EL AGUA PACK X20", "MASAS PACK X12", "PELOTITAS SALTARINAS MARBLE PACK X100", "PULSERA MAGICA FUTBOL PACK X10", "PULSERA MAGICA SIRENA ESCAMAS PACK X10", "PULSERA MÁGICA DEGRADÉ IRIS PACK X20", "PULSERA MÁGICA FLÚO - NEÓN PACK X100", "RESORTE (RESM) PACK X12"], "VELAS": ["BLISTER VELA ONDAS PASTEL SURTIDO 11 CM PACK X6", "SET VELA PASTEL TORNEADA PACK X6", "SET VELAS ESTRELLAS PACK X4", "SET VELAS FORMAS FUTBOL PELOTAS PACK X5", "SET VELAS FORMAS PANDA PACK X5", "VELA GLITTER SANDIA PACK X10", "VELA ONDITAS METAL AZUL PACK X12"]};
+const KEY='dolce-tefy-final';
+let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const mods=document.getElementById('mods');
+const mk=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
+MODS.forEach(m=>{
+  const s=mk('section','mod');
+  s.innerHTML='<h2><span class="letter"></span><span></span></h2><p class="sub"></p><div class="items"></div>';
+  s.querySelector('.letter').textContent='Módulo '+m.l;s.querySelector('h2 span:last-child').textContent=m.t;s.querySelector('.sub').textContent=m.i;
+  const box=s.querySelector('.items');
+  m.q.forEach(q=>{
+    const c=mk('div','card');c.id='card-'+q.c;
+    c.innerHTML='<div class="qh"><span class="code"></span><div><div class="qt"></div></div></div>';
+    c.querySelector('.code').textContent=q.c;c.querySelector('.qt').textContent=q.t;
+    if(q.s){const p=mk('p','qs');p.textContent=q.s;c.querySelector('.qh>div').appendChild(p)}
+    if(q.o){const o=mk('div','opts');q.o.forEach((t,j)=>{const l=mk('label','opt');const i=document.createElement('input');i.type='radio';i.name=q.c;i.value=t;if(saved[q.c]===t)i.checked=true;const sp=document.createElement('span');sp.textContent=t;l.append(i,sp);o.appendChild(l)});c.appendChild(o)}
+    if(q.f){const fs=mk('div','fields');q.f.forEach((f,j)=>{const id=q.c+'_'+j;const d=mk('div','field'+(f.y==='area'?' wide':''));const lb=document.createElement('label');lb.htmlFor=id;lb.textContent=f.l;let inp;if(f.y==='area'){inp=document.createElement('textarea')}else{inp=document.createElement('input');inp.type=f.y==='num'?'number':'text';if(f.y==='num'){inp.inputMode='numeric';inp.min='0'}}inp.id=id;inp.placeholder=f.p||'';inp.value=saved[id]||'';d.append(lb,inp);fs.appendChild(d)});c.appendChild(fs)}
+    box.appendChild(c);
+  });
+  mods.appendChild(s);
+});
+const pk=document.getElementById('pklist');let pi=0;
+Object.entries(PACKS).forEach(([r,list])=>{
+  const h=mk('div','pk-rub');h.textContent=r;pk.appendChild(h);
+  const g=mk('div','pk-grid');
+  list.forEach(n=>{const id='pk'+(pi++);const l=mk('label','it');const i=document.createElement('input');i.type='checkbox';i.id=id;i.value=n;i.dataset.r=r;if(saved[id])i.checked=true;const sp=mk('span','n');sp.textContent=n;l.append(i,sp);g.appendChild(l)});
+  pk.appendChild(g);
+});
+document.getElementById('coment').value=saved.coment||'';
+const ALLQ=MODS.flatMap(m=>m.q);
+document.getElementById('tot').textContent=ALLQ.length;
+function val(q){const out=[];const r=document.querySelector(`input[name="${q.c}"]:checked`);if(r)out.push(r.value);(q.f||[]).forEach((f,j)=>{const v=document.getElementById(q.c+'_'+j).value.trim();if(v)out.push(q.o||q.f.length>1?`${f.l}: ${v}`:v)});return out}
+function upd(){
+  const st={};let n=0;
+  ALLQ.forEach(q=>{const r=document.querySelector(`input[name="${q.c}"]:checked`);if(r)st[q.c]=r.value;(q.f||[]).forEach((f,j)=>{const id=q.c+'_'+j;const v=document.getElementById(id).value;if(v)st[id]=v});const any=val(q).length>0;document.getElementById('card-'+q.c).classList.toggle('done',any);if(any)n++});
+  const pks=[...document.querySelectorAll('#pklist input')];pks.forEach(i=>{if(i.checked)st[i.id]=1});
+  st.coment=document.getElementById('coment').value;
+  document.getElementById('n').textContent=n;document.getElementById('np').textContent=pks.filter(i=>i.checked).length;
+  try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}
+}
+document.addEventListener('input',upd);document.addEventListener('change',upd);
+// Tocar de nuevo una opción marcada la desmarca
+document.addEventListener('pointerdown',e=>{const l=e.target.closest('.opt');if(!l)return;const i=l.querySelector('input');i.dataset.was=i.checked?'1':''});
+document.addEventListener('click',e=>{const i=e.target;if(!(i instanceof HTMLInputElement)||i.type!=='radio')return;if(i.dataset.was==='1'){i.checked=false;i.dataset.was='';upd()}});
+upd();
+function texto(){
+  const L=['RESPUESTAS TEFY · Dolce Festa · última tanda'];
+  MODS.forEach(m=>{L.push('\n'+m.l+'. '+m.t.toUpperCase());m.q.forEach(q=>{const v=val(q);L.push(`${q.c}. ${q.t}\n→ ${v.length?v.join(' · '):'(sin responder)'}`)})});
+  const pks=[...document.querySelectorAll('#pklist input')];const S=pks.filter(i=>i.checked).map(i=>i.value);
+  L.push(`\nF. PACKS\n→ SUELTOS (${S.length}): ${S.join(' · ')||'ninguno'}\n→ Enteros: los otros ${pks.length-S.length}`);
+  const c=document.getElementById('coment').value.trim();if(c)L.push('\nComentarios: '+c);
+  return L.join('\n');
+}
+const res=document.getElementById('result');
+function show(ok,title,msg){res.hidden=false;res.className='result'+(ok?' ok':'');res.innerHTML='<h3></h3><p></p><pre></pre>';res.querySelector('h3').textContent=title;res.querySelector('p').textContent=msg;res.querySelector('pre').textContent=texto();res.scrollIntoView({behavior:'smooth',block:'center'})}
+document.getElementById('copy').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(texto());show(true,'¡Respuestas copiadas! 🎉','Pegalas en el WhatsApp con Gabriel y mandalas.')}
+  catch(e){show(false,'Copiá el texto de abajo','Mantené apretado el texto, elegí "Seleccionar todo", copialo y mandalo por WhatsApp.');const r=document.createRange();r.selectNodeContents(res.querySelector('pre'));const w=getSelection();w.removeAllRanges();w.addRange(r)}
+});
+</script>
+</body>
+</html>
