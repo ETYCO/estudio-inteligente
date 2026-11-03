@@ -147,7 +147,7 @@ const pk=document.getElementById('pklist');let pi=0;
 Object.entries(PACKS).forEach(([r,list])=>{
   const h=mk('div','pk-rub');h.textContent=r;pk.appendChild(h);
   const g=mk('div','pk-grid');
-  list.forEach(n=>{const id='pk'+(pi++);const l=mk('label','it');const i=document.createElement('input');i.type='checkbox';i.id=id;i.value=n;i.dataset.r=r;if(saved[id])i.checked=true;const sp=mk('span','n');sp.textContent=n;l.append(i,sp);g.appendChild(l)});
+  list.forEach(n=>{const id='pk'+(pi++);const l=mk('label','it');const i=document.createElement('input');i.type='checkbox';i.id=id;i.value=n;i.dataset.r=r;if(saved[id])i.checked=true;const sp=mk('span','n');sp.textContent='P'+pi+' · '+n;l.append(i,sp);g.appendChild(l)});
   pk.appendChild(g);
 });
 document.getElementById('coment').value=saved.coment||'';
@@ -170,7 +170,7 @@ upd();
 function texto(){
   const L=['RESPUESTAS TEFY · Dolce Festa · Relevamiento del negocio, etapas finales'];
   MODS.forEach(m=>{L.push('\n'+m.l+'. '+m.t.toUpperCase());m.q.forEach(q=>{const v=val(q);L.push(`${q.c}. ${q.t}\n→ ${v.length?v.join(' · '):'(sin responder)'}`)})});
-  const pks=[...document.querySelectorAll('#pklist input')];const S=pks.filter(i=>i.checked).map(i=>i.value);
+  const pks=[...document.querySelectorAll('#pklist input')];const S=pks.map((i,k)=>i.checked?'P'+(k+1):null).filter(Boolean);
   L.push(`\nF. PACKS\n→ SUELTOS (${S.length}): ${S.join(' · ')||'ninguno'}\n→ Enteros: los otros ${pks.length-S.length}`);
   const c=document.getElementById('coment').value.trim();if(c)L.push('\nComentarios: '+c);
   return L.join('\n');
