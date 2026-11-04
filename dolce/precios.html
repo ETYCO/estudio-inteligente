@@ -10,9 +10,10 @@ header h1{margin:0;font:800 24px "Baloo 2",sans-serif}header small{opacity:.9}
 .tabs button[aria-selected=true]{background:#fff;color:var(--band)}
 .badge{background:var(--pink);color:#fff;border-radius:999px;padding:0 7px;margin-left:4px;font-size:13px}
 main{max-width:900px;margin:0 auto;padding:12px 12px 120px}
-.search{display:flex;gap:8px;position:sticky;top:112px;z-index:5;background:var(--bg);padding:6px 0 10px}
+.search{display:flex;flex-wrap:wrap;gap:8px;position:sticky;top:112px;z-index:5;background:var(--bg);padding:6px 0 10px}
 input[type=search],select,input[type=text]{width:100%;border:2px solid var(--line);border-radius:12px;padding:11px 12px;font:16px "Nunito Sans";background:#fff}
-select{width:auto;max-width:44%}
+select{width:auto;flex:1;min-width:0}
+#q{flex:1 1 100%}
 .item{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin:7px 0}
 .item .t{flex:1;min-width:0}.item b{display:block;font-size:15px}.item small{color:var(--mut)}
 .pr{text-align:right;white-space:nowrap;font-size:14px}.pr .l{font-weight:800;font-size:16px}.pr .e{color:var(--ok);font-weight:700}
