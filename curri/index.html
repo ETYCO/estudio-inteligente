@@ -47,8 +47,8 @@ h3.subc{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(-
 .from{font-size:13px;color:var(--mut)}
 .from strong{color:var(--gold);font-size:20px;font-weight:800}
 .tiers{display:flex;flex-wrap:wrap;gap:5px}
-.tier{font-size:12px;border:1px solid var(--line);border-radius:8px;padding:3px 7px;color:var(--mut);background:#0b1220}
-.tier.on{border-color:var(--gold);color:#111;background:var(--gold);font-weight:700}
+.tier{cursor:pointer;font-family:inherit;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:3px 7px;color:var(--mut);background:#0b1220}
+.tier:hover{border-color:var(--gold2);color:var(--txt)}.tier.on{border-color:var(--gold);color:#111;background:var(--gold);font-weight:700}
 .min{font-size:12px;color:var(--mut)}
 .row{display:flex;align-items:center;gap:8px;margin-top:auto}
 .step{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0b1220}
@@ -151,7 +151,7 @@ $('#chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b
 function tierHTML(p,q){
   if(p.tiers.length===1)return `<div class="min">Precio único · mínimo ${minQ(p)} unidades</div>`;
   const on=tierIdx(p,q);
-  return `<div class="tiers">${p.tiers.map(([t,v],i)=>`<span class="tier${i===on?' on':''}">${t}+ · ${fm(v,p.cur)}</span>`).join('')}</div><div class="min">Mínimo ${minQ(p)} unidades</div>`;
+  return `<div class="tiers">${p.tiers.map(([t,v],i)=>`<button type="button" class="tier${i===on?' on':''}" data-q="${t}">${t}+ · ${fm(v,p.cur)}</button>`).join('')}</div><div class="min">Tocá una cantidad o usá + / − · Mínimo ${minQ(p)} u</div>`;
 }
 function calcHTML(p,q){
   if(!q)return '';
@@ -196,7 +196,8 @@ function refreshCard(el,p,q){
 $('#list').addEventListener('click',e=>{
   const el=e.target.closest('.card');if(!el)return;const p=byId[el.dataset.id],inp=el.querySelector('input');
   let q=parseInt(inp.value)||0;
-  if(e.target.dataset.a==='+'){q=Math.max(q+1,minQ(p))}
+  if(e.target.dataset.q){q=+e.target.dataset.q}
+  else if(e.target.dataset.a==='+'){q=Math.max(q+1,minQ(p))}
   else if(e.target.dataset.a==='-'){q=Math.max(minQ(p),q-1)}
   else if(e.target.classList.contains('add')){
     q=Math.max(q,minQ(p));cart[p.id]=q;save();upd();
