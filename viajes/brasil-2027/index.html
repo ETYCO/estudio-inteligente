@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brasil 2027 · Dos modelos de viaje</title>
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Brasil 2027 · Dos modelos de viaje">
+<meta property="og:description" content="Río + Costa o Nordeste turquesa: rutas, fotos, presupuesto y todo para decidir.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#009739; --amarelo:#FEDD00; --azul:#012169; --mar:#00B4C5; --mar2:#0a8fa0;
+  --areia:#F4E3C1; --areia2:#fbf4e6; --coral:#FF6F59; --tinta:#14213d; --gris:#5b6475;
+  --card:#ffffff; --sombra:0 6px 24px rgba(1,33,105,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Montserrat,system-ui,sans-serif;color:var(--tinta);background:var(--areia2);line-height:1.5}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:"Bebas Neue",Impact,sans-serif;letter-spacing:.04em;font-weight:400;margin:0 0 .4em}
+h2{font-size:2.2rem;color:var(--azul)}
+h3{font-size:1.6rem;color:var(--verde)}
+p{margin:.3em 0 .8em}
+a{color:var(--mar2)}
+/* calçadão de Copacabana */
+.ondas{height:26px;background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='26' viewBox='0 0 80 26'%3E%3Cpath d='M0 13 C10 0 30 0 40 13 S70 26 80 13 V26 H0Z' fill='%23111'/%3E%3C/svg%3E");background-size:80px 26px;background-repeat:repeat-x}
+/* HERO */
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:linear-gradient(160deg,var(--mar) 0%,var(--verde) 55%,var(--azul) 100%)}
+.hero .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s}
+.hero .bg.on{opacity:1}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(1,33,105,.85),rgba(0,0,0,.05) 60%)}
+.hero .txt{position:relative;z-index:2;padding:24px 16px 34px;max-width:980px;margin:0 auto;width:100%}
+.logo{font-family:Pacifico,cursive;color:var(--amarelo);font-size:1.4rem;margin-bottom:.2em;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.hero h1{font-size:clamp(3rem,12vw,6.5rem);line-height:.9;margin:0;text-shadow:0 4px 18px rgba(0,0,0,.45)}
+.hero h1 span{color:var(--amarelo)}
+.hero .sub{font-size:1.05rem;font-weight:600;margin-top:.6em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{background:rgba(255,255,255,.18);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:6px 12px;font-size:.85rem;font-weight:600}
+.credit-hero{position:absolute;right:8px;bottom:6px;z-index:3;font-size:.65rem;opacity:.75}
+.sol{position:absolute;top:22px;right:22px;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle,var(--amarelo) 55%,rgba(254,221,0,0) 70%);z-index:2;animation:pulso 4s ease-in-out infinite}
+@keyframes pulso{50%{transform:scale(1.08)}}
+/* TABS */
+nav.tabs{position:sticky;top:0;z-index:50;background:var(--azul);box-shadow:0 2px 12px rgba(0,0,0,.25)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 10px;max-width:1100px;margin:0 auto}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs button{flex:0 0 auto;border:0;border-radius:999px;padding:9px 15px;font:700 .85rem Montserrat,sans-serif;color:#fff;background:transparent;cursor:pointer;white-space:nowrap}
+nav.tabs button.on{background:var(--amarelo);color:var(--azul)}
+main{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+section.tab{display:none;animation:entra .35s ease}
+section.tab.on{display:block}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--sombra);padding:18px;margin-bottom:18px}
+.pt{font-family:Pacifico,cursive;color:var(--coral);font-size:1.1rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.destaque{border-left:6px solid var(--mar);background:linear-gradient(90deg,#e6fbfd,#fff)}
+.alerta{border-left:6px solid var(--coral);background:#fff4f1}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{padding:9px 8px;border-bottom:1px solid #eadfc8;text-align:left;vertical-align:top}
+th{background:var(--azul);color:#fff;font-weight:700}
+.tabla{overflow-x:auto;border-radius:12px}
+.tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:.72rem;font-weight:800;margin:2px 4px 2px 0;color:#fff}
+.t-fiesta{background:var(--coral)} .t-descanso{background:var(--verde)} .t-paraiso{background:var(--mar)} .t-ciudad{background:var(--azul)}
+.btn{display:inline-block;border:0;border-radius:999px;padding:11px 18px;font:800 .9rem Montserrat,sans-serif;cursor:pointer;background:var(--verde);color:#fff;text-decoration:none}
+.btn.am{background:var(--amarelo);color:var(--azul)} .btn.az{background:var(--azul)} .btn.sm{padding:7px 12px;font-size:.78rem}
+.sig{text-align:right;margin-top:10px}
+/* modelos */
+.modelo-head{border-radius:18px;padding:20px;color:#fff;margin-bottom:18px;position:relative;overflow:hidden}
+.m1{background:linear-gradient(135deg,var(--azul),var(--mar2))}
+.m2{background:linear-gradient(135deg,var(--mar),var(--verde))}
+.modelo-head h2{color:#fff;font-size:2.6rem}
+.modelo-head .kpis{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.kpi{background:rgba(255,255,255,.16);border-radius:12px;padding:8px 12px;font-size:.85rem}
+.kpi b{display:block;font-size:1.25rem}
+.ruta{display:flex;flex-direction:column;gap:0;margin:8px 0}
+.parada{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.punto{width:34px;height:34px;border-radius:50%;background:var(--amarelo);color:var(--azul);display:flex;align-items:center;justify-content:center;font-weight:800;border:3px solid var(--verde)}
+.linea{width:3px;background:repeating-linear-gradient(var(--verde) 0 6px,transparent 6px 11px);height:22px;margin-left:15px}
+.parada .info b{font-size:1.02rem}
+.parada .info small{color:var(--gris)}
+details.dia{background:#fff;border-radius:14px;margin-bottom:8px;box-shadow:0 2px 10px rgba(1,33,105,.07);overflow:hidden}
+details.dia summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none;display:flex;gap:10px;align-items:center}
+details.dia summary::-webkit-details-marker{display:none}
+details.dia summary .d{background:var(--azul);color:var(--amarelo);border-radius:8px;padding:2px 8px;font-size:.78rem;white-space:nowrap}
+details.dia[open] summary{background:var(--areia)}
+details.dia .cuerpo{padding:10px 14px 14px;color:#2d3550}
+/* destinos */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.filtros button{border:2px solid var(--azul);background:#fff;color:var(--azul);border-radius:999px;padding:7px 14px;font:700 .82rem Montserrat;cursor:pointer}
+.filtros button.on{background:var(--azul);color:#fff}
+.dest{padding:0;overflow:hidden}
+.dest .cuerpo{padding:16px}
+.galeria{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,var(--mar),var(--verde));overflow:hidden}
+.galeria img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;transition:opacity .5s}
+.galeria .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-family:"Bebas Neue";font-size:2rem;text-align:center;padding:10px}
+.galeria .nav{position:absolute;bottom:10px;right:10px;display:flex;gap:6px;z-index:3}
+.galeria .nav button{border:0;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--azul);font-size:1.1rem;font-weight:800;cursor:pointer}
+.galeria .cnt{position:absolute;bottom:12px;left:10px;z-index:3;background:rgba(0,0,0,.5);color:#fff;border-radius:999px;padding:3px 9px;font-size:.72rem}
+.credito{font-size:.68rem;color:var(--gris);padding:4px 16px 0;min-height:1.2em}
+.mini{display:flex;gap:6px;padding:8px 16px 0;overflow-x:auto}
+.mini img{width:62px;height:44px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.6;flex:0 0 auto}
+.mini img.on{opacity:1;outline:3px solid var(--amarelo)}
+/* presupuesto */
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.ctrl label{font-weight:700;font-size:.85rem;display:block;margin-bottom:4px}
+.ctrl input[type=range]{width:100%;accent-color:var(--verde)}
+.ctrl select,.ctrl input[type=number]{width:100%;padding:9px;border-radius:10px;border:2px solid #e2d6bb;font:600 .9rem Montserrat}
+.seg{display:flex;background:#eee3c9;border-radius:999px;padding:4px}
+.seg button{flex:1;border:0;background:transparent;border-radius:999px;padding:8px;font:800 .82rem Montserrat;cursor:pointer;color:var(--azul)}
+.seg button.on{background:var(--azul);color:#fff}
+.totales{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.tot{border-radius:16px;padding:14px;color:#fff;background:var(--verde)}
+.tot:nth-child(2){background:var(--azul)} .tot:nth-child(3){background:var(--coral)}
+.tot small{opacity:.9;font-weight:600}
+.tot b{display:block;font-family:"Bebas Neue";font-size:2.2rem;letter-spacing:.03em;line-height:1.1}
+.barra{display:grid;grid-template-columns:130px 1fr 80px;gap:8px;align-items:center;margin:7px 0;font-size:.85rem}
+.barra .b{height:14px;border-radius:999px;background:linear-gradient(90deg,var(--mar),var(--verde));transition:width .4s}
+.barra .v{text-align:right;font-weight:700}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cmp .c{border-radius:14px;padding:12px;background:var(--areia)}
+.cmp .c b{font-family:"Bebas Neue";font-size:1.8rem;color:var(--azul)}
+/* checklist */
+.check li{list-style:none;margin:8px 0}
+.check label{display:flex;gap:10px;align-items:center;cursor:pointer;font-weight:600}
+.check input{width:22px;height:22px;accent-color:var(--verde)}
+.check .hecho{text-decoration:line-through;opacity:.55}
+ul.lista{padding-left:20px} ul.lista li{margin:6px 0}
+footer{background:var(--azul);color:#cfd8ff;font-size:.78rem;padding:20px 16px 30px}
+footer .wrap{max-width:1100px;margin:0 auto}
+footer a{color:var(--amarelo)}
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:100;padding:12px;flex-direction:column}
+#lb.on{display:flex}
+#lb img{max-height:85vh;max-width:100%;border-radius:8px}
+#lb p{color:#ddd;font-size:.75rem;text-align:center;margin-top:8px}
+#lb button{position:absolute;top:12px;right:14px;background:var(--amarelo);border:0;border-radius:50%;width:40px;height:40px;font-size:1.2rem;font-weight:800;cursor:pointer}
+.palmera{position:absolute;bottom:-10px;left:-10px;width:140px;opacity:.25;z-index:1}
+@media (max-width:520px){h2{font-size:1.9rem}.barra{grid-template-columns:96px 1fr 70px}.cmp{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="bg" id="heroBg"></div>
+  <div class="sol"></div>
+  <svg class="palmera" viewBox="0 0 100 120" aria-hidden="true"><path d="M50 120 C48 90 52 70 50 45" stroke="#fff" stroke-width="5" fill="none"/><path d="M50 45 C30 30 10 35 0 45 C15 30 35 25 50 45 C45 25 30 10 15 8 C35 8 48 25 50 45 C55 25 70 10 88 10 C70 18 56 30 50 45 C65 32 85 32 100 45 C85 38 65 38 50 45Z" fill="#fff"/></svg>
+  <div class="txt">
+    <div class="logo">Bem-vindos ao Brasil!</div>
+    <h1>BRASIL <span>2027</span></h1>
+    <div class="sub">Flor, Sofi, Exe y Gabi · saliendo de Mendoza</div>
+    <div class="chips">
+      <span class="chip">🌊 Agua turquesa</span><span class="chip">🎉 Fiesta</span><span class="chip">🌴 Descanso</span><span class="chip">🚗 Con auto</span>
+    </div>
+  </div>
+  <div class="credit-hero" id="heroCred"></div>
+</header>
+<div class="ondas"></div>
+
+<nav class="tabs"><div class="wrap" id="tabs">
+  <button data-t="inicio" class="on">Inicio</button>
+  <button data-t="m1">Modelo 1 · Río</button>
+  <button data-t="m2">Modelo 2 · Nordeste</button>
+  <button data-t="destinos">Destinos y fotos</button>
+  <button data-t="presupuesto">Presupuesto</button>
+  <button data-t="auto">Auto y mareas</button>
+  <button data-t="datos">Datos prácticos</button>
+  <button data-t="checklist">Para reservar</button>
+</div></nav>
+
+<main>
+
+<!-- INICIO -->
+<section class="tab on" id="inicio">
+  <p class="pt">Partiu praia!</p>
+  <h2>Dos formas de conocer Brasil</h2>
+  <p>Somos dos parejas (Gabi 40, Flor 35, Exe 30 y Sofi 25) y ninguno conoce Brasil. Queremos <b>playas paradisíacas</b>, que para nosotros quiere decir agua turquesa, transparente y cálida todos los días. También queremos equilibrio entre descanso y fiesta, y recorrer 3 o 4 lugares en auto.</p>
+
+  <div class="card destaque">
+    <h3>¿Dónde está la playa paradisíaca de verdad?</h3>
+    <ul class="lista">
+      <li><b>Costa de Río:</b> playas hermosas (Lopes Mendes, Trindade, Búzios), pero el agua suele ser <b>verde y más fresca</b>. La única con turquesa de verdad es <b>Arraial do Cabo</b>, el "Caribe brasileño".</li>
+      <li><b>Nordeste:</b> en Porto de Galinhas, Maragogi, Milagres y Carneiros el agua es <b>turquesa y cálida casi todo el año</b>, con piscinas naturales en los arrecifes. De enero a marzo es temporada seca.</li>
+      <li><b>Conclusión:</b> si lo número 1 es el agua turquesa, gana el <b>Modelo 2</b>. Si es la fiesta y conocer Río, gana el <b>Modelo 1</b>.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Comparación rápida</h3>
+    <div class="tabla"><table>
+      <tr><th></th><th>Modelo 1 · Río + Costa</th><th>Modelo 2 · Nordeste turquesa</th></tr>
+      <tr><td><b>Fechas</b></td><td>5 al 17 de marzo · 12 noches</td><td>5 al 16 de marzo · 11 noches</td></tr>
+      <tr><td><b>Agua turquesa y cálida</b></td><td>⭐⭐ solo en Arraial</td><td>⭐⭐⭐⭐⭐ todos los días</td></tr>
+      <tr><td><b>Fiesta</b></td><td>⭐⭐⭐⭐⭐ Río y Búzios</td><td>⭐⭐⭐ Recife y Porto de Galinhas</td></tr>
+      <tr><td><b>Descanso</b></td><td>⭐⭐⭐⭐ Paraty e Ilha Grande</td><td>⭐⭐⭐⭐⭐ Milagres y Maragogi</td></tr>
+      <tr><td><b>Vuelo</b></td><td>Directo, 4 h · USD 1.341 para 4</td><td>1 escala, 11-12 h · USD 2.328 para 4</td></tr>
+      <tr><td><b>Total estimado por persona</b></td><td id="cmpM1">~USD 1.785</td><td id="cmpM2">~USD 1.890</td></tr>
+    </table></div>
+    <div class="sig"><button class="btn sm" onclick="ir('m1')">Ver Modelo 1</button> <button class="btn am sm" onclick="ir('m2')">Ver Modelo 2</button></div>
+  </div>
+
+  <div class="card">
+    <h3>¿Cuándo ir?</h3>
+    <p>La mejor ventana es <b>de fin de febrero a mediados de marzo de 2027</b>: después del Carnaval (5 al 10 de febrero), con pasajes y alojamientos más baratos, el mar en su punto más caliente y menos gente. Enero es temporada alta y cara. Semana Santa termina el 28 de marzo.</p>
+  </div>
+</section>
+
+<!-- MODELO 1 -->
+<section class="tab" id="m1">
+  <div class="modelo-head m1">
+    <h2>Modelo 1 · Río + Costa</h2>
+    <p>Ciudad icónica, fiesta fuerte, naturaleza y un día de Caribe en Arraial.</p>
+    <div class="kpis"><div class="kpi"><b>12 noches</b>5 al 17 de marzo</div><div class="kpi"><b>Directo</b>4 h de vuelo</div><div class="kpi"><b id="kpiM1">USD 1.785</b>por persona</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>La ruta</h3><div class="ruta" id="rutaM1"></div><p><small>Unos 850 km de manejo, siempre de día. Retiran el auto el día 8 al salir de Río y lo devuelven el 16.</small></p></div>
+    <div class="card"><h3>Vuelo</h3><p>JetSMART directo Mendoza–Río (Galeão).<br>Ida <b>vie 5/3</b> 8:45 → 12:35 · Vuelta <b>mié 17/3</b> 13:45 → 18:15.</p><p><b>USD 1.341 para los 4</b> (USD 335 por persona), tarifa básica solo con bolso personal. Valijas aparte: unos USD 200.</p><a class="btn sm" href="https://kiwi.com/u/94jqqus" target="_blank" rel="noopener">Ver vuelo en Kiwi</a></div>
+  </div>
+  <h3>Día por día</h3>
+  <div id="diasM1"></div>
+  <div class="sig"><button class="btn am" onclick="ir('m2')">Siguiente: Modelo 2 →</button></div>
+</section>
+
+<!-- MODELO 2 -->
+<section class="tab" id="m2">
+  <div class="modelo-head m2">
+    <h2>Modelo 2 · Nordeste turquesa</h2>
+    <p>Agua turquesa y cálida todos los días, piscinas naturales y noches tranquilas con algo de fiesta.</p>
+    <div class="kpis"><div class="kpi"><b>11 noches</b>5 al 16 de marzo</div><div class="kpi"><b>1 escala</b>vía Buenos Aires</div><div class="kpi"><b id="kpiM2">USD 1.890</b>por persona</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>La ruta</h3><div class="ruta" id="rutaM2"></div><p><small>Unos 700 km. El auto se retira y se devuelve en el aeropuerto de Recife, así no hay recargo por devolverlo en otra ciudad.</small></p></div>
+    <div class="card"><h3>Vuelo</h3><p>JetSMART Mendoza → Buenos Aires → Recife.<br>Sale <b>jue 4/3</b> 23:25 y llega <b>vie 5/3</b> 10:55. Vuelta <b>mar 16/3</b>: Recife 8:20 → Río → Mendoza 18:15.</p><p><b>USD 2.328 para los 4</b> (USD 582 por persona), tarifa básica. Valijas aparte: unos USD 200.</p><a class="btn sm" href="https://kiwi.com/u/6y2gbm" target="_blank" rel="noopener">Ver vuelo en Kiwi</a></div>
+  </div>
+  <div class="card alerta"><b>Clave del Modelo 2:</b> las piscinas naturales solo se ven con marea baja. Antes de confirmar fechas, hay que mirar la <i>tábua de marés</i> de Porto de Galinhas y Maragogi (ver la solapa Auto y mareas).</div>
+  <h3>Día por día</h3>
+  <div id="diasM2"></div>
+  <div class="sig"><button class="btn am" onclick="ir('destinos')">Siguiente: Destinos y fotos →</button></div>
+</section>
+
+<!-- DESTINOS -->
+<section class="tab" id="destinos">
+  <h2>Destinos y fotos</h2>
+  <p>Las fotos son reales y se cargan en el momento desde Wikimedia Commons. Con las flechas ven más; tocando una foto la agrandan.</p>
+  <div class="filtros" id="filtros">
+    <button data-f="todos" class="on">Todos</button><button data-f="m1">Modelo 1</button><button data-f="m2">Modelo 2</button><button data-f="paraiso">Playa paradisíaca</button><button data-f="fiesta">Fiesta</button><button data-f="descanso">Descanso</button>
+  </div>
+  <div class="grid2" id="gridDest"></div>
+  <div class="sig"><button class="btn am" onclick="ir('presupuesto')">Siguiente: Presupuesto →</button></div>
+</section>
+
+<!-- PRESUPUESTO -->
+<section class="tab" id="presupuesto">
+  <h2>Presupuesto interactivo</h2>
+  <p>Muevan los controles y los números se recalculan. Los vuelos y el auto salen de búsquedas reales del 9/11/2026. Alojamiento, comida y paseos son estimados.</p>
+  <div class="card">
+    <div class="ctrl">
+      <div><label>Modelo</label><div class="seg" id="segModelo"><button data-m="m1" class="on">Río + Costa</button><button data-m="m2">Nordeste</button></div></div>
+      <div><label>Alojamiento</label><select id="nivel"><option value="0.7">Económico (pousadas simples)</option><option value="1" selected>Medio-bueno (lo planificado)</option><option value="1.5">Confort (pousadas boutique)</option></select></div>
+      <div><label>Comida y salidas por persona por día: <span id="vComida">USD 50</span></label><input type="range" id="comida" min="25" max="120" step="5" value="50"></div>
+      <div><label><input type="checkbox" id="valijas" checked> Incluir 2 valijas despachadas</label><label style="margin-top:8px">Cotización (pesos por dólar, opcional)</label><input type="number" id="cotiz" placeholder="Ej.: 1450" min="0"></div>
+    </div>
+    <div class="totales">
+      <div class="tot"><small>Por persona</small><b id="tPP">—</b><small id="tPPars"></small></div>
+      <div class="tot"><small>Por pareja</small><b id="tPar">—</b><small id="tParars"></small></div>
+      <div class="tot"><small>Total del grupo</small><b id="tTot">—</b><small id="tTotars"></small></div>
+    </div>
+    <div id="barras"></div>
+  </div>
+  <div class="card">
+    <h3>Los dos modelos con estos mismos supuestos</h3>
+    <div class="cmp"><div class="c">Río + Costa<br><b id="c1">—</b><br><small>por persona</small></div><div class="c">Nordeste turquesa<br><b id="c2">—</b><br><small>por persona</small></div></div>
+  </div>
+  <div class="sig"><button class="btn am" onclick="ir('auto')">Siguiente: Auto y mareas →</button></div>
+</section>
+
+<!-- AUTO -->
+<section class="tab" id="auto">
+  <h2>Auto y mareas</h2>
+  <div class="grid2">
+    <div class="card"><h3>¿El auto ayuda a tener las dos cosas?</h3>
+      <p><span class="tag t-paraiso">Modelo 2</span> <b>Sí, es casi imprescindible.</b> Las piscinas naturales aparecen con marea baja, a veces a primera hora. Con auto van a la hora justa, duermen en playas tranquilas y manejan 40 a 60 minutos para salir de noche. Sin auto dependen de excursiones con horario fijo.</p>
+      <p><span class="tag t-ciudad">Modelo 1</span> <b>Ayuda, pero no cambia el color del agua.</b> Sirve para llegar a Arraial y a Trindade. En Río no conviene tenerlo: Uber es barato y estacionar es caro.</p>
+    </div>
+    <div class="card"><h3>Costo y requisitos</h3>
+      <ul class="lista">
+        <li>Unos <b>USD 600 para los 4</b>, con seguro completo, nafta y peajes. En promoción arranca en unos USD 20 por día.</li>
+        <li>Sedán compacto con baúl (tipo Onix Plus o HB20S). Compañías: Localiza o Movida.</li>
+        <li>Alcanza con la licencia argentina vigente. Hace falta tarjeta de crédito a nombre del conductor; agreguen un segundo conductor.</li>
+        <li>Waze con la opción de evitar áreas de riesgo. No manejen de noche en rutas de costa. Hay radares por todos lados.</li>
+      </ul>
+    </div>
+    <div class="card destaque"><h3>Mareas: la clave del Nordeste</h3>
+      <ul class="lista">
+        <li>Las piscinas naturales se ven con <b>marea baja</b>, idealmente con menos de 0,5 m.</li>
+        <li>Las mejores mareas bajas son cerca de <b>luna nueva o luna llena</b> ("maré de sizígia").</li>
+        <li>Antes de reservar, busquen en Google "tábua de marés Porto de Galinhas março 2027" y la de Maragogi.</li>
+        <li>Planifiquen los paseos en jangada (Porto de Galinhas) y en catamarán (Galés de Maragogi) según la hora de la marea baja.</li>
+      </ul>
+    </div>
+    <div class="card"><h3>Clima en marzo</h3><p>Entre 27 y 32 °C. En el Nordeste el agua está entre 27 y 29 °C y es temporada seca: las lluvias fuertes llegan de abril a julio. En Río hace el mismo calor, con tormentas cortas de tarde, y el mar es algo más fresco.</p></div>
+  </div>
+  <div class="sig"><button class="btn am" onclick="ir('datos')">Siguiente: Datos prácticos →</button></div>
+</section>
+
+<!-- DATOS -->
+<section class="tab" id="datos">
+  <h2>Datos prácticos</h2>
+  <div class="grid2">
+    <div class="card"><h3>Documentos</h3><p>Alcanza con el <b>DNI vigente</b> y en buen estado (Mercosur). No hace falta pasaporte. Seguro de viaje: no es obligatorio, pero es muy recomendable.</p></div>
+    <div class="card"><h3>Cómo pagar</h3><p><b>PIX</b> (escanear un QR) desde Mercado Pago, Belo, Lemon o Cocos con saldo en pesos; comparen el tipo de cambio de cada app. Lleven tarjeta de respaldo y paguen siempre en <b>reales</b>, nunca con "conversión dinámica".</p></div>
+    <div class="card"><h3>Seguridad</h3><p>Celular guardado en la playa y en la calle, poco efectivo encima, Uber de noche y nada a la vista en el auto. En Boa Viagem (Recife) no se nada fuera del arrecife, por los tiburones.</p></div>
+    <div class="card"><h3>Qué llevar</h3><p>Repelente (hay dengue), protector solar alto, adaptador de enchufe tipo N y chip local o eSIM. Valijas livianas: a Ilha Grande se llega en lancha.</p></div>
+  </div>
+  <div class="sig"><button class="btn am" onclick="ir('checklist')">Siguiente: Para reservar →</button></div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="tab" id="checklist">
+  <h2>Para reservar</h2>
+  <p>Las tildes quedan guardadas en este celular o computadora.</p>
+  <div class="card"><ul class="check" id="check"></ul></div>
+  <p class="pt" style="text-align:center;font-size:1.4rem">Saudade antecipada! 🇧🇷</p>
+</section>
+
+</main>
+
+<div class="ondas"></div>
+<footer><div class="wrap">
+  <p><b>Fuentes:</b> vuelos en Kiwi.com, consultados el 9/11/2026 · <a href="https://www.infomoney.com.br/brasil/quando-e-carnaval-2027/" target="_blank" rel="noopener">Carnaval 2027 (InfoMoney)</a> · <a href="https://www.iprofesional.com/management/443751-pix-en-brasil-como-registrarse-pagar-y-evitar-comisiones-al-viajar" target="_blank" rel="noopener">Pagos con PIX (iProfesional)</a> · <a href="https://promociones-aereas.com.ar/2026/09/alquiler-de-autos-en-rio-de-janeiro-para-recorrer-todas-las-playas-por-dia-au-p.html" target="_blank" rel="noopener">Alquiler de autos en Río</a>.</p>
+  <p>Las fotos son de Wikimedia Commons, con licencias libres; el autor y la licencia figuran debajo de cada una. Alojamiento, comida, paseos y distancias son estimados a confirmar al reservar.</p>
+</div></footer>
+
+<div id="lb"><button onclick="cerrarLb()">✕</button><img id="lbImg" alt=""><p id="lbCred"></p></div>
+
+<script>
+/* ---------- DATOS ---------- */
+const DEST = [
+ {id:"rio", nombre:"Río de Janeiro", modelos:["m1"], tags:["fiesta","ciudad"], noches:"4 noches (3 al llegar + 1 al final)", busq:["Copacabana beach Rio de Janeiro","Ipanema beach","Sugarloaf Mountain Rio","Escadaria Selarón"],
+  txt:"Cristo Redentor, Pão de Açúcar, Copacabana e Ipanema. De noche, samba en Lapa y en la Pedra do Sal."},
+ {id:"paraty", nombre:"Paraty", modelos:["m1"], tags:["descanso"], noches:"3 noches", busq:["Paraty Rio de Janeiro","Paraty boats","Trindade Paraty beach","Paraty historic center"],
+  txt:"Pueblo colonial con calles de piedra, paseos en barco por islas, cascadas y Trindade, con piscinas naturales entre rocas."},
+ {id:"ilhagrande", nombre:"Ilha Grande", modelos:["m1"], tags:["descanso","paraiso"], noches:"2 noches", busq:["Lopes Mendes Ilha Grande","Ilha Grande Brazil beach","Lagoa Azul Ilha Grande","Abraão Ilha Grande"],
+  txt:"Isla sin autos. Lopes Mendes figura siempre entre las mejores playas de Brasil. Laguna Azul, selva y caminatas."},
+ {id:"buzios", nombre:"Búzios y Arraial do Cabo", modelos:["m1"], tags:["fiesta","paraiso"], noches:"3 noches", busq:["Arraial do Cabo beach","Prainhas do Pontal do Atalaia","Búzios Brazil beach","Rua das Pedras Búzios"],
+  txt:"Arraial es el \"Caribe brasileño\": agua turquesa y transparente. Búzios tiene playas mansas y noche en la Rua das Pedras."},
+ {id:"recife", nombre:"Recife y Olinda", modelos:["m2"], tags:["fiesta","ciudad"], noches:"4 noches (2 al llegar + 2 al final)", busq:["Olinda Pernambuco","Recife Antigo","Boa Viagem beach Recife","Olinda colorful houses"],
+  txt:"Olinda es colonial y colorida, con música de frevo. Recife Antigo tiene bares y vida nocturna. En Boa Viagem no se nada fuera del arrecife."},
+ {id:"porto", nombre:"Porto de Galinhas", modelos:["m2"], tags:["paraiso","fiesta"], noches:"3 noches", busq:["Porto de Galinhas natural pools","Porto de Galinhas beach","Muro Alto Ipojuca","Maracaípe beach"],
+  txt:"Piscinas naturales con peces, en jangada y con marea baja. Muro Alto, atardecer en Maracaípe y una villa con buena noche."},
+ {id:"carneiros", nombre:"Praia dos Carneiros", modelos:["m2"], tags:["paraiso","descanso"], noches:"Paseo de un día desde Porto de Galinhas", busq:["Praia dos Carneiros","Igreja de São Benedito Tamandaré","Tamandaré Pernambuco beach"],
+  txt:"La iglesita blanca sobre la arena, cocoteros y agua quieta y turquesa. Es una de las postales más lindas del Nordeste."},
+ {id:"milagres", nombre:"São Miguel dos Milagres y Maragogi", modelos:["m2"], tags:["paraiso","descanso"], noches:"4 noches", busq:["Maragogi beach","São Miguel dos Milagres","Galés Maragogi","Praia do Patacho"],
+  txt:"La Rota Ecológica: pousadas boutique, cocoteros y las piscinas naturales de Galés (Maragogi), Taocas y Patacho. Descanso total."}
+];
+const RUTA = {
+ m1:[["Río de Janeiro","5 al 8 de marzo · 3 noches","Uber desde el aeropuerto, 40 min"],["Paraty","8 al 11 · 3 noches","250 km, unas 4 h por la costa"],["Ilha Grande","11 al 13 · 2 noches","100 km + lancha de 50 min"],["Búzios y Arraial","13 al 16 · 3 noches","320 km, unas 5 h"],["Río de Janeiro","16 al 17 · 1 noche","170 km, unas 2 h 45"]],
+ m2:[["Recife y Olinda","5 al 7 de marzo · 2 noches","Auto desde el aeropuerto"],["Porto de Galinhas","7 al 10 · 3 noches","60 km, 1 h"],["Milagres y Maragogi","10 al 14 · 4 noches","170 km, unas 3 h"],["Recife","14 al 16 · 2 noches","200 km, unas 3 h 30"]]
+};
+const DIAS = {
+ m1:[["Vie 5","Llegada a Río","Check-in en Copacabana o Ipanema, playa y atardecer en la Pedra do Arpoador. Cena en Ipanema."],
+ ["Sáb 6","Río clásico","Cristo Redentor temprano (antes de las 9, para evitar la fila). Tarde en el Pão de Açúcar. Noche en Lapa: samba y caipirinhas."],
+ ["Dom 7","Playa y bares","Ipanema (Posto 9), almuerzo frente al mar y bares de Leblon o un rooftop."],
+ ["Lun 8","A Paraty","Retiran el auto y van por la Rio–Santos, con parada en una playa de Angra. Noche en el casco histórico."],
+ ["Mar 9","Paraty en barco","Lancha privada por islas y playas. Para 4 personas conviene más que la goleta."],
+ ["Mié 10","Cascadas y Trindade","Cachoeira do Tobogã, degustación de cachaça y atardecer en Trindade."],
+ ["Jue 11","A Ilha Grande","Dejan el auto en Conceição de Jacareí y cruzan en lancha a Vila do Abraão."],
+ ["Vie 12","Lopes Mendes","Lancha o caminata hasta una de las mejores playas de Brasil."],
+ ["Sáb 13","A Búzios","Lancha de vuelta, retiran el auto y manejan a Búzios. De noche, Rua das Pedras."],
+ ["Dom 14","Arraial do Cabo","Barco a Prainhas do Pontal do Atalaia y la Gruta Azul: el Caribe brasileño."],
+ ["Lun 15","Búzios lento","Geribá, Ferradura y Azeda. Cena de despedida de la costa."],
+ ["Mar 16","Vuelta a Río","Devuelven el auto. Última noche en la Pedra do Sal o en Lapa."],
+ ["Mié 17","Regreso","Uber al aeropuerto a las 10:30; el vuelo sale 13:45."]],
+ m2:[["Vie 5","Llegada a Recife","Retiran el auto en el aeropuerto. Tarde en Boa Viagem (no nadar fuera del arrecife)."],
+ ["Sáb 6","Olinda y Recife Antigo","De día, Olinda colonial y colorida. De noche, bares de Recife Antigo."],
+ ["Dom 7","A Porto de Galinhas","60 km. Tarde de playa y noche en la villa."],
+ ["Lun 8","Piscinas naturales","Paseo en jangada con marea baja y tarde en Muro Alto."],
+ ["Mar 9","Praia dos Carneiros","La iglesita sobre la arena. Atardecer en Maracaípe."],
+ ["Mié 10","A Milagres","Por la costa hacia la Rota Ecológica. Check-in en una pousada frente al mar."],
+ ["Jue 11","Taocas y Patacho","Piscinas naturales con marea baja. Tarde de hamaca."],
+ ["Vie 12","Galés de Maragogi","Catamarán a las piscinas de Galés, con el agua más turquesa del viaje."],
+ ["Sáb 13","Praia do Toque","Día de descanso total, coco helado y atardecer."],
+ ["Dom 14","Vuelta a Recife","200 km. Noche de despedida en Recife Antigo."],
+ ["Lun 15","Último día","Playa y compras."],
+ ["Mar 16","Regreso","Devuelven el auto; el vuelo sale 8:20."]]
+};
+const PRES = {
+ m1:{vuelos:1341, valijas:200, aloj:1660, auto:600, paseos:600, traslados:100, seguro:240, dias:12},
+ m2:{vuelos:2328, valijas:200, aloj:1500, auto:600, paseos:500, traslados:0, seguro:240, dias:11}
+};
+const CHECK = ["Elegir modelo entre los cuatro","Mirar la tábua de marés (si es el Modelo 2)","Comprar los vuelos con las valijas incluidas","Reservar el auto con seguro completo y segundo conductor","Reservar alojamiento: primero los lugares más chicos (Ilha Grande, Búzios / Milagres, Porto)","Contratar el seguro de viaje","Revisar que los DNI estén vigentes","Instalar la app para pagar con PIX y probarla","Comprar el adaptador de enchufe tipo N y una eSIM"];
+
+/* ---------- TABS ---------- */
+const tabsEl=document.getElementById('tabs');
+function ir(t){
+  document.querySelectorAll('section.tab').forEach(s=>s.classList.toggle('on',s.id===t));
+  tabsEl.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  const b=tabsEl.querySelector(`[data-t="${t}"]`); if(b) b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+  window.scrollTo({top:document.querySelector('nav.tabs').offsetTop,behavior:'smooth'});
+  try{history.replaceState(null,'','#'+t)}catch(e){}
+  if(t==='destinos') cargarVisibles();
+}
+tabsEl.addEventListener('click',e=>{const b=e.target.closest('button'); if(b) ir(b.dataset.t)});
+
+/* ---------- RUTAS Y DÍAS ---------- */
+function pintaRuta(m){
+  const el=document.getElementById('ruta'+m.toUpperCase());
+  el.innerHTML=RUTA[m].map((p,i)=>`${i?'<div class="linea"></div>':''}<div class="parada"><div class="punto">${i+1}</div><div class="info"><b>${p[0]}</b><br><small>${p[1]} · ${p[2]}</small></div></div>`).join('');
+  document.getElementById('dias'+m.toUpperCase()).innerHTML=DIAS[m].map((d,i)=>`<details class="dia"${i===0?' open':''}><summary><span class="d">${d[0]}</span>${d[1]}</summary><div class="cuerpo">${d[2]}</div></details>`).join('');
+}
+pintaRuta('m1'); pintaRuta('m2');
+
+/* ---------- FOTOS REALES (Wikimedia Commons, en vivo) ---------- */
+const MALAS=/(map|mapa|logo|bandeira|bras[aã]o|flag|coat|svg|locator|diagram|plan|chart|stamp|selo)/i;
+const cache={};
+function limpia(h){const d=document.createElement('div'); d.innerHTML=h||''; return (d.textContent||'').trim().slice(0,80)}
+async function buscaFotos(term){
+  if(cache[term]) return cache[term];
+  const url='https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch='+encodeURIComponent(term+' filetype:bitmap')+'&prop=imageinfo&iiprop=url|extmetadata|mime|size&iiurlwidth=1000';
+  try{
+    const r=await fetch(url); const j=await r.json();
+    const ps=Object.values((j.query&&j.query.pages)||{}).sort((a,b)=>(a.index||0)-(b.index||0));
+    const out=ps.filter(p=>p.imageinfo&&/jpeg/.test(p.imageinfo[0].mime)&&!MALAS.test(p.title)&&p.imageinfo[0].width>=800&&p.imageinfo[0].width>=p.imageinfo[0].height)
+      .map(p=>{const ii=p.imageinfo[0],md=ii.extmetadata||{};return{src:ii.thumburl||ii.url,page:ii.descriptionurl,autor:limpia(md.Artist&&md.Artist.value)||'Autor en Wikimedia',lic:(md.LicenseShortName&&md.LicenseShortName.value)||'Licencia libre'}});
+    cache[term]=out; return out;
+  }catch(e){cache[term]=[]; return []}
+}
+async function fotosDestino(d){
+  if(d._fotos) return d._fotos;
+  const res=await Promise.all(d.busq.map(buscaFotos));
+  const vistos=new Set(), todas=[];
+  // intercalar resultados de cada búsqueda para variedad
+  for(let i=0;i<6;i++) res.forEach(lst=>{const f=lst[i]; if(f&&!vistos.has(f.src)){vistos.add(f.src); todas.push(f)}});
+  d._fotos=todas.slice(0,10); return d._fotos;
+}
+const TAGTXT={fiesta:['Fiesta','t-fiesta'],descanso:['Descanso','t-descanso'],paraiso:['Playa paradisíaca','t-paraiso'],ciudad:['Ciudad','t-ciudad']};
+function pintaDestinos(){
+  document.getElementById('gridDest').innerHTML=DEST.map(d=>`
+   <div class="card dest" data-mod="${d.modelos.join(' ')}" data-tags="${d.tags.join(' ')}" id="d-${d.id}">
+     <div class="galeria"><div class="ph">${d.nombre}<br><small style="font-size:1rem;font-family:Montserrat">cargando fotos…</small></div>
+       <div class="cnt"></div><div class="nav"><button aria-label="Anterior" onclick="mover('${d.id}',-1)">‹</button><button aria-label="Siguiente" onclick="mover('${d.id}',1)">›</button></div></div>
+     <div class="credito"></div><div class="mini"></div>
+     <div class="cuerpo"><h3>${d.nombre}</h3>
+       <div>${d.modelos.map(m=>`<span class="tag t-ciudad">${m==='m1'?'Modelo 1':'Modelo 2'}</span>`).join('')}${d.tags.filter(t=>t!=='ciudad').map(t=>`<span class="tag ${TAGTXT[t][1]}">${TAGTXT[t][0]}</span>`).join('')}</div>
+       <p><b>${d.noches}</b></p><p>${d.txt}</p></div>
+   </div>`).join('');
+}
+pintaDestinos();
+const idx={};
+async function cargaDestino(d){
+  const card=document.getElementById('d-'+d.id); if(card.dataset.ok) return; card.dataset.ok=1;
+  const fotos=await fotosDestino(d);
+  const g=card.querySelector('.galeria');
+  if(!fotos.length){g.querySelector('.ph').innerHTML=d.nombre+'<br><small style="font-size:.9rem;font-family:Montserrat">Las fotos necesitan conexión a internet</small>';return}
+  idx[d.id]=0; mostrar(d.id);
+  card.querySelector('.mini').innerHTML=fotos.map((f,i)=>`<img src="${f.src}" alt="${d.nombre} ${i+1}" loading="lazy" onclick="ver('${d.id}',${i})">`).join('');
+}
+function mostrar(id){
+  const d=DEST.find(x=>x.id===id), f=d._fotos[idx[id]], card=document.getElementById('d-'+id), g=card.querySelector('.galeria');
+  let img=g.querySelector('img'); if(!img){img=document.createElement('img'); img.alt=d.nombre; g.prepend(img); img.onclick=()=>abrirLb(id)}
+  img.style.opacity=0; img.onload=()=>{img.style.opacity=1; const ph=g.querySelector('.ph'); if(ph) ph.remove()}; img.src=f.src;
+  g.querySelector('.cnt').textContent=(idx[id]+1)+' / '+d._fotos.length;
+  card.querySelector('.credito').innerHTML=`📷 ${f.autor} · ${f.lic} · <a href="${f.page}" target="_blank" rel="noopener">Wikimedia Commons</a>`;
+  card.querySelectorAll('.mini img').forEach((m,i)=>m.classList.toggle('on',i===idx[id]));
+}
+function mover(id,s){const d=DEST.find(x=>x.id===id); if(!d._fotos||!d._fotos.length) return; idx[id]=(idx[id]+s+d._fotos.length)%d._fotos.length; mostrar(id)}
+function ver(id,i){idx[id]=i; mostrar(id)}
+function abrirLb(id){const d=DEST.find(x=>x.id===id),f=d._fotos[idx[id]]; document.getElementById('lbImg').src=f.src; document.getElementById('lbCred').textContent=d.nombre+' · '+f.autor+' · '+f.lic; document.getElementById('lb').classList.add('on')}
+function cerrarLb(){document.getElementById('lb').classList.remove('on')}
+document.getElementById('lb').addEventListener('click',e=>{if(e.target.id==='lb') cerrarLb()});
+function cargarVisibles(){DEST.forEach(d=>{const c=document.getElementById('d-'+d.id); if(c.style.display!=='none') cargaDestino(d)})}
+document.getElementById('filtros').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.querySelectorAll('#filtros button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('#gridDest .dest').forEach(c=>{
+    const ok=f==='todos'||c.dataset.mod.includes(f)||c.dataset.tags.includes(f); c.style.display=ok?'':'none';
+  });
+  cargarVisibles();
+});
+
+/* Foto de portada */
+(async()=>{
+  const fs=await buscaFotos('Copacabana beach Rio de Janeiro aerial');
+  const f=fs[0]||(await buscaFotos('Porto de Galinhas natural pools'))[0];
+  if(f){const bg=document.getElementById('heroBg'); const im=new Image(); im.onload=()=>{bg.style.backgroundImage=`url("${f.src}")`; bg.classList.add('on')}; im.src=f.src; document.getElementById('heroCred').textContent='📷 '+f.autor+' · '+f.lic+' · Wikimedia Commons'}
+})();
+
+/* ---------- PRESUPUESTO ---------- */
+let modelo='m1';
+const fmt=n=>'USD '+Math.round(n).toLocaleString('es-AR');
+const fmtA=n=>'$ '+Math.round(n).toLocaleString('es-AR');
+function calcula(m){
+  const p=PRES[m], nivel=+document.getElementById('nivel').value, com=+document.getElementById('comida').value, val=document.getElementById('valijas').checked;
+  const r={'Vuelos':p.vuelos,'Valijas':val?p.valijas:0,'Alojamiento':p.aloj*nivel,'Auto':p.auto,'Comida y salidas':com*4*p.dias,'Paseos':p.paseos,'Traslados':p.traslados,'Seguro':p.seguro};
+  const tot=Object.values(r).reduce((a,b)=>a+b,0); return {r,tot};
+}
+function render(){
+  document.getElementById('vComida').textContent='USD '+document.getElementById('comida').value;
+  const {r,tot}=calcula(modelo), cz=+document.getElementById('cotiz').value||0;
+  document.getElementById('tPP').textContent=fmt(tot/4);
+  document.getElementById('tPar').textContent=fmt(tot/2);
+  document.getElementById('tTot').textContent=fmt(tot);
+  [['tPPars',tot/4],['tParars',tot/2],['tTotars',tot]].forEach(([id,v])=>document.getElementById(id).textContent=cz?fmtA(v*cz):'');
+  const max=Math.max(...Object.values(r));
+  document.getElementById('barras').innerHTML=Object.entries(r).filter(([,v])=>v>0).map(([k,v])=>`<div class="barra"><span>${k}</span><div><div class="b" style="width:${(v/max*100).toFixed(1)}%"></div></div><span class="v">${fmt(v)}</span></div>`).join('');
+  const a=calcula('m1').tot/4, b=calcula('m2').tot/4;
+  document.getElementById('c1').textContent=fmt(a); document.getElementById('c2').textContent=fmt(b);
+  document.getElementById('kpiM1').textContent=fmt(a); document.getElementById('kpiM2').textContent=fmt(b);
+  document.getElementById('cmpM1').textContent='~'+fmt(a); document.getElementById('cmpM2').textContent='~'+fmt(b);
+}
+document.getElementById('segModelo').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; modelo=b.dataset.m; document.querySelectorAll('#segModelo button').forEach(x=>x.classList.toggle('on',x===b)); render()});
+['nivel','comida','valijas','cotiz'].forEach(id=>document.getElementById(id).addEventListener('input',render));
+render();
+
+/* ---------- CHECKLIST ---------- */
+let hechos={}; try{hechos=JSON.parse(localStorage.getItem('brasil27_check')||'{}')}catch(e){}
+function pintaCheck(){
+  document.getElementById('check').innerHTML=CHECK.map((c,i)=>`<li><label class="${hechos[i]?'hecho':''}"><input type="checkbox" data-i="${i}" ${hechos[i]?'checked':''}> ${c}</label></li>`).join('');
+}
+document.getElementById('check').addEventListener('change',e=>{const i=e.target.dataset.i; hechos[i]=e.target.checked; try{localStorage.setItem('brasil27_check',JSON.stringify(hechos))}catch(err){} pintaCheck()});
+pintaCheck();
+
+/* abrir en la solapa del link (#m2, etc.) */
+const h=(location.hash||'').slice(1); if(h&&document.getElementById(h)) ir(h);
+</script>
+</body>
+</html>
