@@ -80,6 +80,13 @@ th{background:var(--azul);color:#fff;font-weight:700}
 .linea{width:3px;background:repeating-linear-gradient(var(--verde) 0 6px,transparent 6px 11px);height:22px;margin-left:15px}
 .parada .info b{font-size:1.02rem}
 .parada .info small{color:var(--gris)}
+.dias{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.dcard{display:grid;grid-template-columns:62px 1fr;gap:12px;align-items:start;background:#fff;border-radius:14px;padding:12px;box-shadow:0 2px 10px rgba(1,33,105,.08);border-left:6px solid var(--mar)}
+.dcard:nth-child(even){border-left-color:var(--verde)}
+.dcard .fecha{background:var(--azul);color:var(--amarelo);border-radius:10px;text-align:center;font-family:"Bebas Neue",Impact,sans-serif;font-size:1.8rem;line-height:1;padding:7px 4px 6px}
+.dcard .fecha small{display:block;font:800 .72rem Montserrat,sans-serif;color:#fff;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.dcard .tit{display:block;font-weight:800;color:var(--azul);font-size:1rem;margin-bottom:2px}
+.dcard .txt{margin:0;font-size:.92rem;color:#2d3550;line-height:1.45}
 details.dia{background:#fff;border-radius:14px;margin-bottom:8px;box-shadow:0 2px 10px rgba(1,33,105,.07);overflow:hidden}
 details.dia summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none;display:flex;gap:10px;align-items:center}
 details.dia summary::-webkit-details-marker{display:none}
@@ -407,7 +414,8 @@ tabsEl.addEventListener('click',e=>{const b=e.target.closest('button'); if(b) ir
 function pintaRuta(m){
   const el=document.getElementById('ruta'+m.toUpperCase());
   el.innerHTML=RUTA[m].map((p,i)=>`${i?'<div class="linea"></div>':''}<div class="parada"><div class="punto">${i+1}</div><div class="info"><b>${p[0]}</b><br><small>${p[1]} · ${p[2]}</small></div></div>`).join('');
-  document.getElementById('dias'+m.toUpperCase()).innerHTML=DIAS[m].map((d,i)=>`<details class="dia"${i===0?' open':''}><summary><span class="d">${d[0]}</span>${d[1]}</summary><div class="cuerpo">${d[2]}</div></details>`).join('');
+  const dEl=document.getElementById('dias'+m.toUpperCase()); dEl.className='dias';
+  dEl.innerHTML=DIAS[m].map(d=>{const [dn,num]=d[0].split(' ');return `<div class="dcard"><div class="fecha"><small>${dn}</small>${num}</div><div><span class="tit">${d[1]}</span><p class="txt">${d[2]}</p></div></div>`}).join('');
 }
 pintaRuta('m1'); pintaRuta('m2');
 
