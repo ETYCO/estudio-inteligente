@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es-AR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tablero de comando ETYCO</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: una sola pantalla de lectura para la gerencia. Franja de estado arriba, alertas y caja al centro, control de lo ejecutado, vencimientos e incidencias abajo. Dark-first, azul marino ETYCO. */
+:root{
+  --bg:#0F1B30; --surface:#16253F; --surface2:#1B2D4B; --line:#2A3F63; --text:#E8EEF9; --muted:#9DB8E8;
+  --accent:#3B82F6; --accent-soft:rgba(59,130,246,.16);
+  --ok:#3DD68C; --warn:#F5B642; --crit:#FF7070;
+  --ok-soft:rgba(61,214,140,.14); --warn-soft:rgba(245,182,66,.15); --crit-soft:rgba(255,112,112,.16);
+  --f-text:'Inter',Arial,Helvetica,sans-serif; --f-num:'Space Grotesk','Inter',Arial,sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  --bg:#EEF2F9; --surface:#FFFFFF; --surface2:#F4F7FC; --line:#D3DCEC; --text:#0F1B30; --muted:#4F5C73;
+  --accent:#2563EB; --accent-soft:rgba(37,99,235,.10);
+  --ok:#15803D; --warn:#B45309; --crit:#B91C1C;
+  --ok-soft:rgba(21,128,61,.10); --warn-soft:rgba(180,83,9,.10); --crit-soft:rgba(185,28,28,.10);
+  color-scheme:light; } }
+:root[data-theme="light"]{
+  --bg:#EEF2F9; --surface:#FFFFFF; --surface2:#F4F7FC; --line:#D3DCEC; --text:#0F1B30; --muted:#4F5C73;
+  --accent:#2563EB; --accent-soft:rgba(37,99,235,.10);
+  --ok:#15803D; --warn:#B45309; --crit:#B91C1C;
+  --ok-soft:rgba(21,128,61,.10); --warn-soft:rgba(180,83,9,.10); --crit-soft:rgba(185,28,28,.10);
+  color-scheme:light; }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--f-text);font-size:14px;line-height:1.45;
+  padding-block:0 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;padding:20px 0 18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:34px;height:38px;flex:none}
+.wordmark{font-family:var(--f-num);font-weight:700;font-size:20px;letter-spacing:.42em;margin:0;line-height:1}
+.tag{font-size:11px;color:var(--muted);margin:3px 0 0}
+.who{margin-left:auto;text-align:right;min-width:0}
+.who h1{font-family:var(--f-num);font-size:20px;margin:0;font-weight:600;text-wrap:balance}
+.who p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.sample{display:inline-block;margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--warn);background:var(--warn-soft);padding:3px 9px;border-radius:4px}
+h2{font-family:var(--f-num);font-size:15px;font-weight:600;margin:0 0 12px;letter-spacing:.01em}
+h2 small{font-family:var(--f-text);font-weight:400;color:var(--muted);font-size:12px;margin-left:8px}
+.grid{display:grid;gap:16px;margin-top:16px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.g2b{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media(max-width:860px){.g3,.g2,.g2b{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+/* semáforos */
+.light{display:flex;gap:12px;align-items:flex-start}
+.dot{width:14px;height:14px;border-radius:50%;flex:none;margin-top:4px}
+.dot.ok{background:var(--ok);box-shadow:0 0 0 4px var(--ok-soft)}
+.dot.warn{background:var(--warn);box-shadow:0 0 0 4px var(--warn-soft)}
+.dot.crit{background:var(--crit);box-shadow:0 0 0 4px var(--crit-soft)}
+.light h3{margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.light .big{font-family:var(--f-num);font-size:22px;font-weight:600;margin:2px 0}
+.light p{margin:0;color:var(--muted);font-size:12.5px}
+/* alertas */
+.lvl{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:var(--surface2);color:var(--text);font:inherit;font-size:12px;padding:5px 11px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.chip:focus-visible,.alert button:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.alert{border:1px solid var(--line);border-left-width:4px;border-radius:6px;margin-bottom:8px;background:var(--surface2)}
+.alert.n1{border-left-color:var(--crit)}.alert.n2{border-left-color:var(--warn)}.alert.n3{border-left-color:var(--accent)}
+.alert button{all:unset;box-sizing:border-box;display:flex;gap:10px;align-items:flex-start;width:100%;padding:10px 12px;cursor:pointer}
+.alert .lv{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;padding-top:2px}
+.n1 .lv{color:var(--crit)}.n2 .lv{color:var(--warn)}.n3 .lv{color:var(--accent)}
+.alert .ttl{flex:1;min-width:0;font-weight:500}
+.alert .det{display:none;padding:0 12px 12px 12px;font-size:12.5px;color:var(--muted)}
+.alert.open .det{display:block}
+.det dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0}
+.det dt{color:var(--text);font-weight:600}.det dd{margin:0}
+/* caja */
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:6px;border-radius:2px}
+svg text{font-family:var(--f-text);fill:var(--muted);font-size:11px}
+.chartbox{overflow-x:auto}
+/* ejecutado vs presupuesto */
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--surface2);color:var(--text);font:inherit;font-size:13px;padding:6px 14px;border-radius:6px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.row{display:grid;grid-template-columns:minmax(120px,1.3fr) minmax(0,3fr) 78px;gap:6px 14px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row .nm{font-weight:500}
+.bars{display:grid;gap:4px;min-width:0}
+.bar{height:7px;border-radius:4px;background:var(--line);position:relative}
+.bar b{display:block;height:100%;border-radius:4px}
+.bar.p b{background:var(--muted);opacity:.55}.bar.e b{background:var(--accent)}
+.vals{font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;grid-column:2}
+.dev{font-family:var(--f-num);font-weight:600;text-align:right;font-size:14px;font-variant-numeric:tabular-nums}
+.dev.ok{color:var(--ok)}.dev.warn{color:var(--warn)}.dev.crit{color:var(--crit)}
+@media(max-width:520px){.row{grid-template-columns:minmax(0,1fr) 70px}.bars,.vals{grid-column:1 / -1}.vals{grid-column:1 / -1}}
+.key{font-size:12px;color:var(--muted);margin-top:10px}
+/* tablas */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-num)}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}.pill.warn{background:var(--warn-soft);color:var(--warn)}.pill.crit{background:var(--crit-soft);color:var(--crit)}.pill.info{background:var(--accent-soft);color:var(--accent)}
+footer{margin-top:24px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+@media (prefers-reduced-motion:no-preference){.alert,.chip,.tab{transition:background .15s,border-color .15s}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 34 38" fill="none" aria-hidden="true"><path d="M17 2 31 10v18L17 36 3 28V10L17 2Z" stroke="#3B82F6" stroke-width="2.4"/><path d="M22 14.5c-1.4-1.6-3.2-2.5-5-2.5-3.6 0-6.2 2.9-6.2 6.5S13.4 25 17 25c1.8 0 3.6-.9 5-2.5" stroke="var(--text)" stroke-width="2.4" stroke-linecap="round"/><circle cx="17" cy="18.5" r="1.7" fill="#3B82F6"/></svg>
+    <div><p class="wordmark">ETYCO</p><p class="tag">Soluciones contables, impositivas y laborales</p></div>
+  </div>
+  <div class="who">
+    <h1>Tablero de comando</h1>
+    <p>Para la gerencia · Semana 3 del mes</p>
+    <span class="sample">Ejemplo con datos ilustrativos, no son cifras de la empresa</span>
+  </div>
+</header>
+
+<section class="grid g3" aria-label="Estado general">
+  <div class="panel light"><span class="dot ok"></span><div><h3>Cumplimiento</h3><div class="big">En orden</div><p>Todo presentado y pagado en término. Próximo vencimiento en 3 días con fondos asignados.</p></div></div>
+  <div class="panel light"><span class="dot warn"></span><div><h3>Control</h3><div class="big">1 diferencia</div><p>El débito fiscal del sistema difiere 1,8 % de ARCA. Se revisa esta semana.</p></div></div>
+  <div class="panel light"><span class="dot crit"></span><div><h3>Gestión</h3><div class="big">Caja en riesgo</div><p>La caja proyectada baja del mínimo en la semana 7. Requiere decisión hoy.</p></div></div>
+</section>
+
+<section class="grid g2">
+  <div class="panel">
+    <h2>Alertas activas <small id="alcount"></small></h2>
+    <div class="lvl" role="group" aria-label="Filtrar por nivel">
+      <button class="chip" data-f="all" aria-pressed="true" id="f-all">Todas</button>
+      <button class="chip" data-f="n1" aria-pressed="false" id="f-n1">1 Crítico</button>
+      <button class="chip" data-f="n2" aria-pressed="false" id="f-n2">2 Importante</button>
+      <button class="chip" data-f="n3" aria-pressed="false" id="f-n3">3 Seguimiento</button>
+    </div>
+    <div id="alerts"></div>
+  </div>
+  <div class="panel">
+    <h2>Caja proyectada <small>13 semanas, en millones de pesos</small></h2>
+    <div class="chartbox"><svg id="caja" viewBox="0 0 640 250" role="img" aria-label="Caja proyectada por semana contra el mínimo" style="width:100%;min-width:480px;height:auto"></svg></div>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Caja proyectada</span><span><i style="background:var(--crit)"></i>Caja mínima</span><span><i style="background:var(--warn);height:8px;width:8px;border-radius:50%"></i>Semana bajo el mínimo</span></div>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="panel">
+    <h2>Ejecutado contra presupuesto <small>mes en curso, en millones salvo indicación</small></h2>
+    <div class="tabs" role="tablist" aria-label="Tipo de presupuesto">
+      <button class="tab" role="tab" id="t-fin" data-t="fin" aria-selected="true">Financiero</button>
+      <button class="tab" role="tab" id="t-eco" data-t="eco" aria-selected="false">Económico</button>
+      <button class="tab" role="tab" id="t-ope" data-t="ope" aria-selected="false">Operativo</button>
+    </div>
+    <div id="ejec"></div>
+    <p class="key">Desvío: verde hasta 5 %, ámbar de 5 % a 10 %, rojo desde 10 %. La barra gris es el presupuesto y la azul lo ejecutado.</p>
+  </div>
+</section>
+
+<section class="grid g2b">
+  <div class="panel">
+    <h2>Vencimientos de los próximos 15 días</h2>
+    <div class="tw"><table><thead><tr><th>Cuándo</th><th>Qué</th><th class="n">Importe</th><th>Fondos</th></tr></thead><tbody id="venc"></tbody></table></div>
+  </div>
+  <div class="panel">
+    <h2>Incidencias abiertas</h2>
+    <div class="tw"><table><thead><tr><th>Incidencia</th><th>Nivel</th><th>Responsable</th><th>Plazo</th></tr></thead><tbody id="inc"></tbody></table></div>
+  </div>
+</section>
+
+<footer>Ejemplo reducido del tablero de comando que ETYCO propone para la gerencia de una empresa. El tablero real se arma con los datos reales de la empresa: los presupuestos en la Etapa 2, el control y los informes en tiempo real en la Etapa 3 y las alertas por niveles en la Etapa 4. Los umbrales y los destinatarios se definen con la gerencia.</footer>
+</div>
+
+<script>
+(function(){
+var ALERTS=[
+ {l:'n1',n:'1 Crítico',t:'La caja proyectada baja del mínimo en la semana 7',q:'Los pagos a proveedores y la cuota de planes coinciden con una semana de cobranzas bajas: la caja llega a $ 55 M contra un mínimo de $ 60 M.',a:'Adelantar cobranzas o diferir compras de la semana 6. Decidir hoy.',w:'Gerencia y estudio',p:'Hoy'},
+ {l:'n2',n:'2 Importante',t:'Margen bruto 13,9 % por debajo del presupuesto',q:'El costo de la mercadería se mantuvo, pero las ventas fueron 5,2 % menores a lo previsto.',a:'Revisar el mix de productos y la lista de precios de la línea de fiambres.',w:'Gerencia y responsable comercial',p:'48 horas'},
+ {l:'n2',n:'2 Importante',t:'IVA vence en 4 días hábiles con fondos al 80 %',q:'Hay $ 7,8 M asignados de los $ 9,8 M del vencimiento.',a:'Asignar los $ 2,0 M restantes antes del jueves.',w:'Gerencia y administración',p:'48 horas'},
+ {l:'n2',n:'2 Importante',t:'Diferencia de conciliación de 1,8 % en el débito fiscal',q:'El libro del sistema y lo informado a ARCA no coinciden en un comprobante de la semana.',a:'Identificar el comprobante y corregir el registro.',w:'Administración y estudio',p:'48 horas'},
+ {l:'n3',n:'3 Seguimiento',t:'Stock de tripa natural bajo el mínimo',q:'Quedan 4 días de producción con el stock actual.',a:'Emitir pedido de compra.',w:'Compras',p:'5 días hábiles'},
+ {l:'n3',n:'3 Seguimiento',t:'Incidencia #14 sin movimiento hace 6 días',q:'Corrección de un precio de lista que sigue abierta.',a:'Actualizar estado o escalar al nivel 2.',w:'Responsable del área',p:'5 días hábiles'},
+ {l:'n3',n:'3 Seguimiento',t:'Certificado MiPyME pendiente de carga en el legajo',q:'Falta el comprobante vigente.',a:'Subir el archivo a la carpeta del legajo.',w:'Administración',p:'5 días hábiles'}
+];
+var cur='all', alEl=document.getElementById('alerts');
+function drawAlerts(){
+  var list=ALERTS.filter(function(a){return cur==='all'||a.l===cur});
+  document.getElementById('alcount').textContent=list.length+' de '+ALERTS.length;
+  alEl.innerHTML=list.map(function(a,i){
+    return '<div class="alert '+a.l+'" id="al-'+i+'"><button type="button" aria-expanded="false" aria-controls="det-'+i+'"><span class="lv">'+a.n+'</span><span class="ttl">'+a.t+'</span></button>'+
+    '<div class="det" id="det-'+i+'"><dl><dt>Qué pasó</dt><dd>'+a.q+'</dd><dt>Qué hacer</dt><dd>'+a.a+'</dd><dt>Quién</dt><dd>'+a.w+'</dd><dt>Plazo</dt><dd>'+a.p+'</dd></dl></div></div>';
+  }).join('');
+  Array.prototype.forEach.call(alEl.querySelectorAll('.alert button'),function(b){
+    b.addEventListener('click',function(){var box=b.parentNode,o=box.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false')});
+  });
+}
+Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(c){
+  c.addEventListener('click',function(){cur=c.dataset.f;Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(x){x.setAttribute('aria-pressed',x===c?'true':'false')});drawAlerts()});
+});
+drawAlerts();
+
+/* caja */
+var caja=[120,105,98,140,125,90,70,55,80,110,95,85,100], MIN=60, YMAX=160;
+(function(){
+  var W=640,H=250,L=44,R=14,T=14,B=34,pw=W-L-R,ph=H-T-B, s='';
+  function x(i){return L+pw*i/(caja.length-1)} function y(v){return T+ph*(1-v/YMAX)}
+  for(var g=0;g<=160;g+=40){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(g)+'" y2="'+y(g)+'" stroke="var(--line)" stroke-width="1"/><text x="'+(L-8)+'" y="'+(y(g)+4)+'" text-anchor="end">'+g+'</text>';}
+  var pts=caja.map(function(v,i){return x(i)+','+y(v)}).join(' ');
+  s+='<polygon points="'+L+','+y(0)+' '+pts+' '+x(caja.length-1)+','+y(0)+'" fill="var(--accent)" opacity=".14"/>';
+  s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(MIN)+'" y2="'+y(MIN)+'" stroke="var(--crit)" stroke-width="1.6" stroke-dasharray="5 4"/>';
+  s+='<polyline points="'+pts+'" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linejoin="round"/>';
+  caja.forEach(function(v,i){var low=v<MIN;s+='<circle cx="'+x(i)+'" cy="'+y(v)+'" r="'+(low?6:3.2)+'" fill="'+(low?'var(--warn)':'var(--accent)')+'" stroke="var(--surface)" stroke-width="1.5"/>';
+    s+='<text x="'+x(i)+'" y="'+(H-12)+'" text-anchor="middle">'+(i===0?'Hoy':'S'+i)+'</text>';});
+  s+='<text x="'+(x(7))+'" y="'+(y(55)+22)+'" text-anchor="middle" style="fill:var(--warn);font-weight:600">$ 55 M</text>';
+  document.getElementById('caja').innerHTML=s;
+})();
+
+/* ejecutado vs presupuesto */
+var EJ={
+ fin:[['Cobranzas',430,410],['Pagos a proveedores',360,372],['Sueldos y cargas sociales',48,49],['Impuestos y cuotas de planes',52,61],['Caja al cierre',120,98]],
+ eco:[['Ventas',480,455],['Costo de la mercadería',336,331],['Margen bruto',144,124],['Gastos de estructura',78,81],['Resultado del mes',66,43]],
+ ope:[['Kilos comprados (miles)',520,540],['Kilos producidos (miles)',410,395],['Rendimiento carne a fiambre (%)',78,73],['Mermas (%)',3.5,4.6],['Dotación (personas)',27,28]]
+};
+function fmt(n){return n.toLocaleString('es-AR',{maximumFractionDigits:1})}
+function drawEj(k){
+  document.getElementById('ejec').innerHTML=EJ[k].map(function(r){
+    var p=r[1],e=r[2],d=(e-p)/p*100,ad=Math.abs(d),cl=ad<5?'ok':(ad<10?'warn':'crit'),mx=Math.max(p,e);
+    return '<div class="row"><div class="nm">'+r[0]+'</div><div class="bars"><div class="bar p"><b style="width:'+(p/mx*100)+'%"></b></div><div class="bar e"><b style="width:'+(e/mx*100)+'%"></b></div></div>'+
+      '<div class="dev '+cl+'">'+(d>0?'+':'')+fmt(Math.round(d*10)/10)+' %</div><div class="vals"><span>Presupuesto '+fmt(p)+'</span><span>Ejecutado '+fmt(e)+'</span></div></div>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){t.setAttribute('aria-selected',t.dataset.t===k?'true':'false')});
+}
+Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){t.addEventListener('click',function(){drawEj(t.dataset.t)})});
+drawEj('fin');
+
+/* vencimientos e incidencias */
+var V=[['En 3 días','F.931 del mes (seguridad social)','12,4','ok','Asignados'],['En 4 días','IVA del mes','9,8','warn','80 % asignado'],['En 8 días','Cuota de plan de pagos','3,8','ok','Asignados'],['En 9 días','Anticipo de Ganancias','1,9','ok','Asignados'],['En 12 días','Proveedor principal, pago semanal','45,0','crit','Sin fondos asignados']];
+document.getElementById('venc').innerHTML=V.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td class="n">$ '+r[2]+' M</td><td><span class="pill '+r[3]+'">'+r[4]+'</span></td></tr>'}).join('');
+var I=[['#21 Diferencia de conciliación del débito fiscal','info','2','Administración','48 h'],['#18 Precio de lista de fiambres sin actualizar','info','2','Gerencia comercial','48 h'],['#14 Corrección de un precio de lista','warn','3','Responsable del área','Vencido hace 1 día'],['#12 Certificado MiPyME sin cargar','info','3','Administración','5 días']];
+document.getElementById('inc').innerHTML=I.map(function(r){return '<tr><td>'+r[0]+'</td><td><span class="pill '+r[1]+'">Nivel '+r[2]+'</span></td><td>'+r[3]+'</td><td>'+r[4]+'</td></tr>'}).join('');
+})();
+</script>
+
+</html>
