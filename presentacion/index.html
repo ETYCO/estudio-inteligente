@@ -93,12 +93,20 @@ h2{font-family:var(--f-t);font-size:44px;line-height:1.12;font-weight:700;margin
 .ctl button{background:var(--navy3);color:var(--white);border:1px solid var(--line);border-radius:8px;padding:8px 14px;font:600 14px var(--f-b);cursor:pointer}
 .ctl button:focus-visible{outline:2px solid var(--blue)}
 .prog{position:fixed;left:0;bottom:0;height:4px;background:var(--blue);z-index:5;transition:width .2s}
+
+body.scroll{height:auto;overflow-y:auto}
+body.scroll #stage{position:static;display:block;overflow:visible;padding:20px 0 40px}
+body.scroll .slide{display:block;position:relative;top:auto;left:auto;transform:none !important;margin:0 auto 26px;box-shadow:0 8px 30px rgba(0,0,0,.45)}
+body.scroll .prog{display:none}
+body.scroll #prev,body.scroll #next{display:none}
+#mode{background:var(--blue);border-color:var(--blue)}
 @page{size:1280px 720px;margin:0}
 @media print{
   html,body{background:var(--navy);height:auto}
   #stage{position:static;display:block;overflow:visible}
-  .slide{display:block !important;position:relative;top:0;left:0;transform:none !important;page-break-after:always;break-after:page}
+  .slide{display:block !important;position:relative;top:0;left:0;transform:none !important;zoom:1 !important;margin:0 !important;box-shadow:none !important;page-break-after:always;break-after:page}
   .ctl,.prog{display:none}
+  body.scroll #stage{padding:0 !important}body.scroll .slide{margin:0 !important}body.scroll{height:auto}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
@@ -268,18 +276,28 @@ h2{font-family:var(--f-t);font-size:44px;line-height:1.12;font-weight:700;margin
 </section>
 
 </div>
-<div class="ctl"><button id="prev" aria-label="Anterior">◀</button><button id="next" aria-label="Siguiente">▶</button></div>
+<div class="ctl"><button id="mode">Presentar (una por vez)</button><button id="prev" aria-label="Anterior">◀</button><button id="next" aria-label="Siguiente">▶</button></div>
 <div class="prog" id="prog"></div>
 <script>
 (function(){
-  var s=[].slice.call(document.querySelectorAll('.slide')),i=0;
-  function fit(){var k=Math.min(innerWidth/1280,innerHeight/720);s.forEach(function(e){e.style.transform='translate(-50%,-50%) scale('+k+')'})}
-  function show(n){i=Math.max(0,Math.min(s.length-1,n));s.forEach(function(e,j){e.classList.toggle('on',j===i)});document.getElementById('prog').style.width=((i+1)/s.length*100)+'%';try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
-  addEventListener('resize',fit);
-  addEventListener('keydown',function(e){if(['ArrowRight','PageDown',' ','Enter'].indexOf(e.key)>-1){e.preventDefault();show(i+1)}else if(['ArrowLeft','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();show(i-1)}else if(e.key==='Home')show(0);else if(e.key==='End')show(s.length-1)});
+  var s=[].slice.call(document.querySelectorAll('.slide')),i=0,mode='scroll',B=document.body;
+  var mb=document.getElementById('mode');
+  function fit(){var k=Math.min(innerWidth/1280,innerHeight/720);s.forEach(function(e){e.style.zoom=1;e.style.transform='translate(-50%,-50%) scale('+k+')'})}
+  function scrollLayout(){var z=Math.min(1,(innerWidth-24)/1280);s.forEach(function(e){e.style.transform='';e.style.zoom=z})}
+  function show(n){i=Math.max(0,Math.min(s.length-1,n));s.forEach(function(e,j){e.classList.toggle('on',j===i)});document.getElementById('prog').style.width=((i+1)/s.length*100)+'%'}
+  function setMode(m){mode=m;B.classList.toggle('scroll',m==='scroll');mb.textContent=m==='scroll'?'Presentar (una por vez)':'Ver todas';
+    if(m==='scroll'){s.forEach(function(e){e.classList.remove('on')});scrollLayout();window.scrollTo(0,0)}else{fit();show(i)}}
+  addEventListener('resize',function(){mode==='scroll'?scrollLayout():fit()});
+  addEventListener('keydown',function(e){
+    if(e.key==='p'||e.key==='P'||e.key==='F5'){e.preventDefault();setMode(mode==='scroll'?'show':'scroll');return}
+    if(mode!=='show')return;
+    if(['ArrowRight','PageDown',' ','Enter'].indexOf(e.key)>-1){e.preventDefault();show(i+1)}
+    else if(['ArrowLeft','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();show(i-1)}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(s.length-1);else if(e.key==='Escape')setMode('scroll')});
   document.getElementById('next').onclick=function(){show(i+1)};document.getElementById('prev').onclick=function(){show(i-1)};
-  document.getElementById('stage').addEventListener('click',function(e){if(e.target.closest('.ctl'))return;show(e.clientX>innerWidth/2?i+1:i-1)});
-  fit();show((parseInt(location.hash.slice(1),10)||1)-1);
+  mb.onclick=function(){setMode(mode==='scroll'?'show':'scroll')};
+  document.getElementById('stage').addEventListener('click',function(e){if(mode!=='show'||e.target.closest('.ctl'))return;show(e.clientX>innerWidth/2?i+1:i-1)});
+  setMode('scroll');
 })();
 </script>
 </body>
